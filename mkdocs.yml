@@ -1,0 +1,7 @@
+docs_dir: doc/book/ru
+pages:
+    - index.md
+site_name: module-options
+site_description: 'Набор готовых решений для работы с Doctrine2 на проектах zf2'
+repo_url: 'https://github.com/nnx-company/doctrine'
+copyright: 'Copyright (c) 2016 <a href="https://github.com/nnx-company">NNX</a>'

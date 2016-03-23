@@ -1,0 +1,57 @@
+{
+  "name": "nnx/doctrine",
+  "description": "Doctrine Toolkit",
+  "type": "library",
+  "keywords": [
+    "zf2",
+    "module",
+    "doctrine"
+  ],
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Malofeykin Andrey",
+      "email": "and-rey2@yandex.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "zendframework/zend-mvc": "~2.4.0",
+    "zendframework/zend-servicemanager": "~2.4.0",
+    "zendframework/zend-modulemanager": "~2.4.0",
+    "zendframework/zend-stdlib": "~2.4.0",
+    "nnx/module-options": "~0.1.0",
+    "container-interop/container-interop": "~1.1.0"
+  },
+  "require-dev": {
+    "fabpot/php-cs-fixer": "~1.11.0",
+    "phpunit/phpunit": "~4.8.0",
+    "phpunit/phpcov": "~2.0.0",
+    "satooshi/php-coveralls": "~1.0.0",
+    "zendframework/zend-config": "~2.4.0",
+    "zendframework/zend-test": "~2.4.0",
+    "zendframework/zend-loader": "~2.4.0",
+    "zendframework/zend-serializer": "~2.4.0",
+    "zendframework/zend-log": "~2.4.0",
+    "zendframework/zend-i18n": "~2.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nnx\\Doctrine\\": "src/"
+    },
+    "classmap": [
+      "./Module.php",
+      "src/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nnx\\Doctrine\\PhpUnit\\Test\\": "test/phpunit/tests",
+      "Nnx\\Doctrine\\PhpUnit\\TestData\\": "test/phpunit/_files"
+    },
+    "classmap": [
+      "./test/phpunit/Bootstrap.php",
+      "test/"
+    ]
+  }
+}
