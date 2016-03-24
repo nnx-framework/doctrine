@@ -13,6 +13,16 @@ namespace Nnx\Doctrine\PhpUnit\TestData;
 class TestPaths
 {
     /**
+     * Возвращает путь путь до директории в которой создаются прокси классы для сущностей доктрины
+     *
+     * @return string
+     */
+    public static function getPathToDoctrineProxyDir()
+    {
+        return __DIR__ . '/../../../data/test/Proxies/';
+    }
+
+    /**
      * Путь до директории модуля
      *
      * @return string
@@ -24,11 +34,43 @@ class TestPaths
 
     /**
      * Путь до конфига приложения по умолчанию
+     *
+     * @return string
      */
     public static function getPathToDefaultAppConfig()
     {
         return  __DIR__ . '/../_files/DefaultApp/application.config.php';
     }
 
+    /**
+     * Путь до конфига приложения для тестирования абстрактной фабрики получения ObjectManager доктрины
+     *
+     * @return string
+     */
+    public static function getPathToObjectManagerAbstractFactoryForOrmAppConfig()
+    {
+        return  __DIR__ . '/../_files/ObjectManagerAbstractFactoryForOrm/application.config.php';
+    }
 
+    /**
+     * Путь до директории в которой расположены модули приложения, используемого для тестирования автоматического
+     * определения имени сущности, на основе имени интерфейса
+     *
+     * @return string
+     */
+    public static function getPathToEntityAutoResolveAppModuleDir()
+    {
+        return  __DIR__ . '/../_files/EntityAutoResolve/module/';
+    }
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования автоматического
+     * определения имени сущности, на основе имени интерфейса
+     *
+     * @return string
+     */
+    public static function getPathToEntityAutoResolveAppConfig()
+    {
+        return  __DIR__ . '/../_files/EntityAutoResolve/application.config.php';
+    }
 }

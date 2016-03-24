@@ -13,6 +13,8 @@ $config = [
 
 return array_merge_recursive(
     include __DIR__ . '/moduleOptions.config.php',
+    include __DIR__ . '/doctrineObjectManager.config.php',
+    include __DIR__ . '/entityManager.config.php',
     include __DIR__ . '/serviceManager.config.php',
     $config
 );

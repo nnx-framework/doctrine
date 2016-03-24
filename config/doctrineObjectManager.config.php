@@ -6,19 +6,19 @@
 namespace Nnx\Doctrine;
 
 use Nnx\Doctrine\ObjectManager\DoctrineObjectManager;
-use Nnx\Doctrine\EntityManager\EntityManager;
+use Nnx\Doctrine\ObjectManager\OrmAbstractFactory;
+
 
 return [
-    'service_manager' => [
+    DoctrineObjectManager::CONFIG_KEY => [
         'invokables'         => [
-            DoctrineObjectManager::class => DoctrineObjectManager::class,
-            EntityManager::class => EntityManager::class
+            
         ],
         'factories'          => [
 
         ],
         'abstract_factories' => [
-
+            OrmAbstractFactory::class => OrmAbstractFactory::class
         ]
     ],
 ];

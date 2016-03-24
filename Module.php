@@ -17,6 +17,10 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\InitProviderInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Nnx\Doctrine\ObjectManager\DoctrineObjectManager;
+use Nnx\Doctrine\ObjectManager\DoctrineObjectManagerProviderInterface;
+use Nnx\Doctrine\EntityManager\EntityManager;
+use Nnx\Doctrine\EntityManager\EntityManagerProviderInterface;
 
 
 /**
@@ -46,7 +50,7 @@ class Module implements
     public function init(ModuleManagerInterface $manager)
     {
         if (!$manager instanceof ModuleManager) {
-            $errMsg =sprintf('Module manager not implement %s', ModuleManager::class);
+            $errMsg = sprintf('Module manager not implement %s', ModuleManager::class);
             throw new Exception\InvalidArgumentException($errMsg);
         }
 
@@ -64,12 +68,19 @@ class Module implements
             throw new Exception\InvalidArgumentException($errMsg);
         }
 
-//        $serviceListener->addServiceManager(
-//            ModuleOptionsPluginManagerInterface::class,
-//            ModuleOptionsPluginManager::CONFIG_KEY,
-//            ModuleOptionsProviderInterface::class,
-//            'getModuleOptionsConfig'
-//        );
+        $serviceListener->addServiceManager(
+            DoctrineObjectManager::class,
+            DoctrineObjectManager::CONFIG_KEY,
+            DoctrineObjectManagerProviderInterface::class,
+            'getDoctrineObjectManagerConfig'
+        );
+
+        $serviceListener->addServiceManager(
+            EntityManager::class,
+            EntityManager::CONFIG_KEY,
+            EntityManagerProviderInterface::class,
+            'getEntityManagerConfig'
+        );
     }
 
     /**
