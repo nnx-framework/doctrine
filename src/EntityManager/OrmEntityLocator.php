@@ -1,6 +1,6 @@
 <?php
 /**
- * @link    https://github.com/nnx-company/doctrine
+ * @link    https://github.com/nnx-framework/doctrine
  * @author  Malofeykin Andrey  <and-rey2@yandex.ru>
  */
 namespace Nnx\Doctrine\EntityManager;
@@ -42,6 +42,7 @@ class OrmEntityLocator implements OrmEntityLocatorInterface
      */
     public function get($id)
     {
+        
     }
 
     /**
@@ -53,6 +54,7 @@ class OrmEntityLocator implements OrmEntityLocatorInterface
      */
     public function has($id)
     {
+        $this->getObjectManagerAutoDetector()->getObjectManagerNameByClassName($id);
     }
 
     /**

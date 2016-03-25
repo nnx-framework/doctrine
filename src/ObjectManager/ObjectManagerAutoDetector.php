@@ -1,6 +1,6 @@
 <?php
 /**
- * @link    https://github.com/nnx-company/doctrine
+ * @link    https://github.com/nnx-framework/doctrine
  * @author  Malofeykin Andrey  <and-rey2@yandex.ru>
  */
 namespace Nnx\Doctrine\ObjectManager;
@@ -58,6 +58,37 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
 
         return $objectManagerName;
     }
+
+
+    /**
+     * Проверяет есть ли возможность по имени класса модуля, получить имя objectManager'a который используется в данном модуле
+     *
+     * @param $className
+     *
+     * @return boolean
+     */
+    public function hasObjectManagerNameByClassName($className)
+    {
+        $moduleOptions = $this->getModuleOptionsManager()->getOptionsByClassName($className);
+
+        if (!$moduleOptions instanceof ObjectManagerNameProviderInterface) {
+            $errMsg = sprintf('Module options not implement %s', ObjectManagerNameProviderInterface::class);
+            throw new Exception\RuntimeException($errMsg);
+        }
+
+        $objectManagerName = $moduleOptions->getObjectManagerName();
+
+        if (!is_string($objectManagerName)) {
+            $errMsg = 'Invalid object manager name. Manager name not string';
+            throw new Exception\RuntimeException($errMsg);
+        }
+
+        return $objectManagerName;
+    }
+
+
+
+
 
     /**
      * Возвращает менеджер для работы с настройками модуля
