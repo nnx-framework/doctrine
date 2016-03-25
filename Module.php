@@ -39,7 +39,7 @@ class Module implements
      *
      * @var string
      */
-    const CONFIG_KEY = 'nnx_module_options';
+    const CONFIG_KEY = 'nnx_doctrine';
 
     /**
      * @param ModuleManagerInterface $manager

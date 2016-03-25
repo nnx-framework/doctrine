@@ -8,11 +8,15 @@ namespace Nnx\Doctrine;
 use Nnx\Doctrine\Options\ModuleOptions;
 use Nnx\Doctrine\Options\ModuleOptionsFactory;
 use Nnx\ModuleOptions\ModuleOptionsPluginManager;
+use Nnx\Doctrine\Options\ModuleOptionsInterface;
 
 return [
     ModuleOptionsPluginManager::CONFIG_KEY => [
         'factories' => [
-            ModuleOptions::class => ModuleOptionsFactory::class
+            ModuleOptionsInterface::class => ModuleOptionsFactory::class
+        ],
+        'aliases' => [
+            ModuleOptions::class => ModuleOptionsInterface::class
         ]
     ]
 ];

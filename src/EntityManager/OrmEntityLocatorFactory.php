@@ -9,7 +9,8 @@ use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
+use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
+use Nnx\Doctrine\Options\ModuleOptionsInterface;
 
 /**
  * Class OrmEntityLocatorFactory
@@ -35,6 +36,11 @@ class OrmEntityLocatorFactory implements FactoryInterface
         /** @var ObjectManagerAutoDetectorInterface $objectManagerAutoDetector */
         $objectManagerAutoDetector = $appServiceLocator->get(ObjectManagerAutoDetectorInterface::class);
 
-        return new OrmEntityLocator($objectManagerAutoDetector);
+        /** @var ModuleOptionsPluginManagerInterface $moduleOptionsManager */
+        $moduleOptionsManager = $appServiceLocator->get(ModuleOptionsPluginManagerInterface::class);
+        /** @var ModuleOptionsInterface $moduleOptions */
+        $moduleOptions = $moduleOptionsManager->get(ModuleOptionsInterface::class);
+
+        return new OrmEntityLocator($objectManagerAutoDetector, $moduleOptions);
     }
 }

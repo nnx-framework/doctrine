@@ -7,12 +7,13 @@ namespace Nnx\Doctrine\Options;
 
 use Zend\Stdlib\AbstractOptions;
 use Nnx\ModuleOptions\ModuleOptionsInterface;
+use Nnx\Doctrine\Options\ModuleOptionsInterface as CurrentModuleOptionsInterface;
 
 /**
  * Class ModuleOptions
  *
  * @package Nnx\Doctrine\Options
  */
-class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface
+class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, CurrentModuleOptionsInterface
 {
 }

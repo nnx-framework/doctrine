@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine\EntityManager;
 
 use Zend\ServiceManager\AbstractFactoryInterface;
+use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 
@@ -157,8 +158,13 @@ class OrmEntityAbstractFactory implements AbstractFactoryInterface
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
+        $appServiceLocator = $serviceLocator;
+        if ($serviceLocator instanceof AbstractPluginManager) {
+            $appServiceLocator = $serviceLocator->getServiceLocator();
+        }
+
         /** @var OrmEntityLocatorInterface $ormEntityLocator */
-        $ormEntityLocator = $serviceLocator->get(OrmEntityLocatorInterface::class);
+        $ormEntityLocator = $appServiceLocator->get(OrmEntityLocatorInterface::class);
 
         return $ormEntityLocator->has($requestedName);
     }
