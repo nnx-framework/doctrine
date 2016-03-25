@@ -7,6 +7,10 @@ namespace Nnx\Doctrine;
 
 use Nnx\Doctrine\ObjectManager\DoctrineObjectManager;
 use Nnx\Doctrine\EntityManager\EntityManager;
+use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface;
+use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorFactory;
+use Nnx\Doctrine\EntityManager\OrmEntityLocatorInterface;
+use Nnx\Doctrine\EntityManager\OrmEntityLocatorFactory;
 
 return [
     'service_manager' => [
@@ -15,7 +19,8 @@ return [
             EntityManager::class => EntityManager::class
         ],
         'factories'          => [
-
+            ObjectManagerAutoDetectorInterface::class => ObjectManagerAutoDetectorFactory::class,
+            OrmEntityLocatorInterface::class => OrmEntityLocatorFactory::class
         ],
         'abstract_factories' => [
 

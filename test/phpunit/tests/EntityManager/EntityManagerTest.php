@@ -50,6 +50,6 @@ class EntityManagerTest extends AbstractHttpControllerTestCase
         /** @var EntityManager $entityManager */
         $entityManager = $this->getApplicationServiceLocator()->get(EntityManager::class);
 
-        //$entityManager->get(TestEntityInterface::class);
+        $entityManager->get(TestEntityInterface::class);
     }
 }
