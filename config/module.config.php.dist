@@ -3,10 +3,10 @@
  * @link    https://github.com/nnx-framework/doctrine
  * @author  Malofeykin Andrey  <and-rey2@yandex.ru>
  */
-namespace Nnx\Doctrine;
 
-$config = [
-    Module::CONFIG_KEY => [
+
+return [
+    'nnx_doctrine' => [
         /**
          * Строка, используемая как разделитель в полном имени класса сущности(или интерфейса), которая разделяет неймспейс
          * на две части: 1) Нейсмпейс в котором расположенные все сущности 2) Постфикс указывающий на кокнетную сущность.
@@ -34,11 +34,3 @@ $config = [
         'entityNamePostfix' => ''
     ]
 ];
-
-return array_merge_recursive(
-    include __DIR__ . '/moduleOptions.config.php',
-    include __DIR__ . '/doctrineObjectManager.config.php',
-    include __DIR__ . '/entityManager.config.php',
-    include __DIR__ . '/serviceManager.config.php',
-    $config
-);

@@ -11,6 +11,8 @@ use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface;
 use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorFactory;
 use Nnx\Doctrine\EntityManager\OrmEntityLocatorInterface;
 use Nnx\Doctrine\EntityManager\OrmEntityLocatorFactory;
+use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigInterface;
+use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigFactory;
 
 return [
     'service_manager' => [
@@ -20,7 +22,8 @@ return [
         ],
         'factories'          => [
             ObjectManagerAutoDetectorInterface::class => ObjectManagerAutoDetectorFactory::class,
-            OrmEntityLocatorInterface::class => OrmEntityLocatorFactory::class
+            OrmEntityLocatorInterface::class          => OrmEntityLocatorFactory::class,
+            DoctrineOrmModuleConfigInterface::class   => DoctrineOrmModuleConfigFactory::class
         ],
         'abstract_factories' => [
 

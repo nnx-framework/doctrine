@@ -22,6 +22,13 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
     protected $moduleOptionsManager;
 
     /**
+     * Кеш, ключем являтся имя класса, а значением имя ObjectManager
+     *
+     * @var array
+     */
+    protected $classNameToObjectManagerName = [];
+
+    /**
      * ObjectManagerAutoDetector constructor.
      *
      * @param ModuleOptionsPluginManagerInterface $moduleOptionsManager
@@ -38,25 +45,16 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      *
      * @return string
      *
-     * @throws Exception\RuntimeException
+     * @throws Exception\ErrorBuildObjectManagerNameException
      */
     public function getObjectManagerNameByClassName($className)
     {
-        $moduleOptions = $this->getModuleOptionsManager()->getOptionsByClassName($className);
-
-        if (!$moduleOptions instanceof ObjectManagerNameProviderInterface) {
-            $errMsg = sprintf('Module options not implement %s', ObjectManagerNameProviderInterface::class);
-            throw new Exception\RuntimeException($errMsg);
+        if (false === $this->hasObjectManagerNameByClassName($className)) {
+            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $className);
+            throw new Exception\ErrorBuildObjectManagerNameException($errMsg);
         }
 
-        $objectManagerName = $moduleOptions->getObjectManagerName();
-
-        if (!is_string($objectManagerName)) {
-            $errMsg = 'Invalid object manager name. Manager name not string';
-            throw new Exception\RuntimeException($errMsg);
-        }
-
-        return $objectManagerName;
+        return $this->classNameToObjectManagerName[$className];
     }
 
 
@@ -66,24 +64,36 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      * @param $className
      *
      * @return boolean
+     *
      */
     public function hasObjectManagerNameByClassName($className)
     {
-        $moduleOptions = $this->getModuleOptionsManager()->getOptionsByClassName($className);
+        if (array_key_exists($className, $this->classNameToObjectManagerName)) {
+            return false !== $this->classNameToObjectManagerName[$className];
+        }
+
+        $moduleOptionsManager =  $this->getModuleOptionsManager();
+        if (!$moduleOptionsManager->hasOptionsByClassName($className)) {
+            $this->classNameToObjectManagerName[$className] = false;
+            return false;
+        }
+
+        $moduleOptions = $moduleOptionsManager->getOptionsByClassName($className);
 
         if (!$moduleOptions instanceof ObjectManagerNameProviderInterface) {
-            $errMsg = sprintf('Module options not implement %s', ObjectManagerNameProviderInterface::class);
-            throw new Exception\RuntimeException($errMsg);
+            $this->classNameToObjectManagerName[$className] = false;
+            return false;
         }
 
         $objectManagerName = $moduleOptions->getObjectManagerName();
 
         if (!is_string($objectManagerName)) {
-            $errMsg = 'Invalid object manager name. Manager name not string';
-            throw new Exception\RuntimeException($errMsg);
+            $this->classNameToObjectManagerName[$className] = false;
+            return false;
         }
+        $this->classNameToObjectManagerName[$className] = $objectManagerName;
 
-        return $objectManagerName;
+        return false !== $this->classNameToObjectManagerName[$className];
     }
 
 

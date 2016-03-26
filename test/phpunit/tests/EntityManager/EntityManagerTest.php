@@ -9,6 +9,7 @@ use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use Nnx\Doctrine\EntityManager\EntityManager;
 use Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule1\Entity\TestEntity\TestEntityInterface;
+use Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule3\Entity\TestEntity\TestEntity;
 
 /**
  * Class EntityManagerTest
@@ -50,6 +51,8 @@ class EntityManagerTest extends AbstractHttpControllerTestCase
         /** @var EntityManager $entityManager */
         $entityManager = $this->getApplicationServiceLocator()->get(EntityManager::class);
 
-        $entityManager->get(TestEntityInterface::class);
+        $entity = $entityManager->get(TestEntityInterface::class);
+
+        static::assertInstanceOf(TestEntity::class, $entity);
     }
 }
