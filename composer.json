@@ -20,7 +20,9 @@
     "zendframework/zend-mvc": "~2.4.0",
     "zendframework/zend-servicemanager": "~2.4.0",
     "zendframework/zend-modulemanager": "~2.4.0",
+    "zendframework/zend-view": "~2.4.0",
     "zendframework/zend-stdlib": "~2.4.0",
+    "zendframework/zend-console": "~2.4.0",
     "nnx/module-options": "~0.1.0",
     "container-interop/container-interop": "~1.1.0"
   },
@@ -30,7 +32,7 @@
     "phpunit/phpcov": "~2.0.0",
     "satooshi/php-coveralls": "~1.0.0",
 
-    "nnx/zf2-test-toolkit": "~0.1.0",
+    "nnx/zf2-test-toolkit": "~0.1.3",
 
     "zendframework/zend-config": "~2.4.0",
     "zendframework/zend-test": "~2.4.0",

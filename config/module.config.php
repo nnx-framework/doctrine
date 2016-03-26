@@ -40,5 +40,8 @@ return array_merge_recursive(
     include __DIR__ . '/doctrineObjectManager.config.php',
     include __DIR__ . '/entityManager.config.php',
     include __DIR__ . '/serviceManager.config.php',
+    include __DIR__ . '/controllers.config.php',
+    include __DIR__ . '/console.config.php',
+
     $config
 );

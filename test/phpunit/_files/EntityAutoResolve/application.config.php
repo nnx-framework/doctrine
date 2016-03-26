@@ -1,7 +1,8 @@
 <?php
 
-use \Nnx\Doctrine\PhpUnit\TestData\TestPaths;
-
+use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\ZF2TestToolkit\Listener\InitTestAppListener;
+use Nnx\ZF2TestToolkit\Listener\StopDoctrineLoadCliPostEventListener;
 
 return [
     'modules'                 => [
@@ -25,5 +26,15 @@ return [
         'config_glob_paths' => [
             __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',
         ],
+    ],
+    'service_manager'         => [
+        'invokables' => [
+            InitTestAppListener::class => InitTestAppListener::class,
+            StopDoctrineLoadCliPostEventListener::class => StopDoctrineLoadCliPostEventListener::class
+        ]
+    ],
+    'listeners'               => [
+        InitTestAppListener::class,
+        StopDoctrineLoadCliPostEventListener::class
     ]
 ];
