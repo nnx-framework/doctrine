@@ -53,7 +53,7 @@ class EntityMapBuilderController extends AbstractConsoleController
     {
         /** @var Request $request */
         $request = $this->getRequest();
-        $managerName = $request->getParam('objectManager');
+        $managerName = $request->getParam('objectManager', 'doctrine.entitymanager.orm_default');
 
         if (!$this->getDoctrineObjectManager()->has($managerName)) {
             return [
