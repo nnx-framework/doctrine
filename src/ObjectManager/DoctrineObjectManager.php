@@ -6,17 +6,14 @@
 namespace Nnx\Doctrine\ObjectManager;
 
 use Zend\ServiceManager\AbstractPluginManager;
-use Interop\Container\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager as ObjectManagerInterface;
 
 /**
  * Class DoctrineObjectManager
  *
  * @package Nnx\Doctrine\ObjectManager
- *          
- * @method ObjectManagerInterface get($id)
  */
-class DoctrineObjectManager extends AbstractPluginManager implements ContainerInterface
+class DoctrineObjectManager extends AbstractPluginManager implements DoctrineObjectManagerInterface
 {
     /**
      * Имя секции в конфиги приложения отвечающей за настройки менеджера

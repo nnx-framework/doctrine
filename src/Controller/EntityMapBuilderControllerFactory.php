@@ -9,6 +9,8 @@ use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Nnx\Doctrine\ObjectManager\DoctrineObjectManager;
+use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
+
 
 /**
  * Class EntityMapBuilderController
@@ -36,6 +38,9 @@ class EntityMapBuilderControllerFactory implements FactoryInterface
         /** @var DoctrineObjectManager $doctrineObjectManager */
         $doctrineObjectManager = $appServiceLocator->get(DoctrineObjectManager::class);
 
-        return new EntityMapBuilderController($doctrineObjectManager);
+        /** @var EntityMapBuilderInterface $entityMapBuilder */
+        $entityMapBuilder = $appServiceLocator->get(EntityMapBuilderInterface::class);
+
+        return new EntityMapBuilderController($doctrineObjectManager, $entityMapBuilder);
     }
 }

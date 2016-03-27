@@ -28,7 +28,7 @@ class EntityMapBuilderControllerTest extends AbstractConsoleControllerTestCase
             include TestPaths::getPathToEntityAutoResolveAppConfig()
         );
 
-        $this->dispatch('entity-map build --objectManager=test');
+        $this->dispatch('entity-map build --objectManager=doctrine.entitymanager.test');
     }
 
     /**

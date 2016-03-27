@@ -5,12 +5,21 @@
  */
 namespace Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule1\Entity\TestEntity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class TestEntity
  *
  * @package Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule1\Entity\TestEntity
+ *
+ * @ORM\Entity()
  */
 class TestEntity implements TestEntityInterface
 {
-
+    /**
+     * @var integer
+     * @ORM\Id()
+     * @ORM\Column()
+     */
+    protected $id;
 }

@@ -9,6 +9,7 @@ use Zend\Mvc\Controller\AbstractConsoleController;
 use Zend\Console\Request;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ConsoleModel;
+use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
 
 /**
  * Class EntityMapBuilderController
@@ -25,13 +26,22 @@ class EntityMapBuilderController extends AbstractConsoleController
     protected $doctrineObjectManager;
 
     /**
+     * Билдер для генерации карты сущностей
+     *
+     * @var EntityMapBuilderInterface
+     */
+    protected $entityMapBuilder;
+
+    /**
      * EntityMapBuilderController constructor.
      *
-     * @param ContainerInterface $doctrineObjectManager
+     * @param ContainerInterface        $doctrineObjectManager
+     * @param EntityMapBuilderInterface $entityMapBuilder
      */
-    public function __construct(ContainerInterface $doctrineObjectManager)
+    public function __construct(ContainerInterface $doctrineObjectManager, EntityMapBuilderInterface $entityMapBuilder)
     {
         $this->setDoctrineObjectManager($doctrineObjectManager);
+        $this->setEntityMapBuilder($entityMapBuilder);
     }
 
 
@@ -50,6 +60,8 @@ class EntityMapBuilderController extends AbstractConsoleController
                 ConsoleModel::RESULT => sprintf('Doctrine ObjectManager %s not found', $managerName)
             ];
         }
+
+        $entityMap = $this->getEntityMapBuilder()->buildEntityMapByObjectManagerName($managerName);
 
         $result = '';
 
@@ -79,6 +91,30 @@ class EntityMapBuilderController extends AbstractConsoleController
     public function setDoctrineObjectManager(ContainerInterface $doctrineObjectManager)
     {
         $this->doctrineObjectManager = $doctrineObjectManager;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает билдер для генерации карты сущностей
+     *
+     * @return EntityMapBuilderInterface
+     */
+    public function getEntityMapBuilder()
+    {
+        return $this->entityMapBuilder;
+    }
+
+    /**
+     * Устанавливает билдер для генерации карты сущностей
+     *
+     * @param EntityMapBuilderInterface $entityMapBuilder
+     *
+     * @return $this
+     */
+    public function setEntityMapBuilder(EntityMapBuilderInterface $entityMapBuilder)
+    {
+        $this->entityMapBuilder = $entityMapBuilder;
 
         return $this;
     }
