@@ -19,6 +19,15 @@ return [
                             'action'     => 'build'
                         ]
                     ],
+                ],
+                'entity-map-clear' => [
+                    'options' => [
+                        'route'    => 'entity-map clear --objectManager=',
+                        'defaults' => [
+                            'controller' => EntityMapBuilderController::class,
+                            'action'     => 'clear'
+                        ]
+                    ],
                 ]
             ]
         ]

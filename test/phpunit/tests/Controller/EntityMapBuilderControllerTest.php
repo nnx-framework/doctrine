@@ -58,6 +58,43 @@ class EntityMapBuilderControllerTest extends AbstractConsoleControllerTestCase
     }
 
     /**
+     * Тестирование сброса кеша карты сущностей
+     *
+     * @return void
+     *
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Exception
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
+    public function testClearAction()
+    {
+
+        /** @noinspection PhpIncludeInspection */
+        $this->setApplicationConfig(
+            include TestPaths::getPathToEntityMapBuilderAppConfig()
+        );
+
+        $objectManager = 'doctrine.entitymanager.test';
+
+        /** @var EntityMapCacheInterface $entityMapCache */
+        $entityMapCache = $this->getApplication()->getServiceManager()->get(EntityMapCacheInterface::class);
+        $entityMapCache->deleteEntityMap($objectManager);
+
+        $this->dispatch("entity-map build --objectManager={$objectManager}");
+
+        static::assertTrue($entityMapCache->hasEntityMap($objectManager));
+
+        $this->dispatch("entity-map clear --objectManager={$objectManager}");
+
+        static::assertFalse($entityMapCache->hasEntityMap($objectManager));
+        $this->assertConsoleOutputContains('Entity map clear');
+    }
+
+
+
+
+    /**
      * Тестирование генерация карты сущностей и сохранение ее в кеше. Проверка случая, когда некорректно задано имя
      * ObjectManager
      *

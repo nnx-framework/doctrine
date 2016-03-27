@@ -48,6 +48,7 @@ class EntityMapBuilderController extends AbstractConsoleController
     /**
      * Генерация карты сущностей и сохранение ее в кеше
      *
+     * @return array
      */
     public function buildAction()
     {
@@ -84,6 +85,31 @@ class EntityMapBuilderController extends AbstractConsoleController
             ConsoleModel::RESULT => $result
         ];
     }
+
+
+    /**
+     * Очистка карты сущностей из кеша
+     *
+     * @return array
+     */
+    public function clearAction()
+    {
+        /** @var Request $request */
+        $request = $this->getRequest();
+        $managerName = $request->getParam('objectManager', 'doctrine.entitymanager.orm_default');
+
+        $entityMapCache = $this->getEntityMapCache();
+        $result = "Entity map not found\n";
+        if ($entityMapCache->hasEntityMap($managerName)) {
+            $entityMapCache->deleteEntityMap($managerName);
+            $result = "Entity map clear\n";
+        }
+
+        return [
+            ConsoleModel::RESULT => $result
+        ];
+    }
+
 
     /**
      * Возвращает менеджер для получения ObjectManager Doctrine2

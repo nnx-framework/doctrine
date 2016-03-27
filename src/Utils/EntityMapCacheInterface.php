@@ -46,7 +46,7 @@ interface EntityMapCacheInterface
      *
      * @param $objectManagerName
      *
-     * @return array|null
+     * @return bool
      */
     public function hasEntityMap($objectManagerName);
 }

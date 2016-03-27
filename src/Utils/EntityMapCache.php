@@ -109,7 +109,7 @@ class EntityMapCache implements EntityMapCacheInterface
 
         $cache = $this->getCache();
 
-        if (false === $cache->contains($key)) {
+        if (true === $cache->contains($key)) {
             $cache->delete($key);
         }
     }
@@ -119,7 +119,7 @@ class EntityMapCache implements EntityMapCacheInterface
      *
      * @param $objectManagerName
      *
-     * @return array|null
+     * @return bool
      */
     public function hasEntityMap($objectManagerName)
     {
