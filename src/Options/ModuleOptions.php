@@ -9,6 +9,7 @@ use Zend\Stdlib\AbstractOptions;
 use Nnx\ModuleOptions\ModuleOptionsInterface;
 use Nnx\Doctrine\Options\ModuleOptionsInterface as CurrentModuleOptionsInterface;
 
+
 /**
  * Class ModuleOptions
  *
@@ -51,6 +52,23 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
      */
     protected $entityNamePostfix;
 
+    /**
+     * Имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache
+     *
+     * (@see https://github.com/doctrine/DoctrineModule)
+     * (@see vendor/doctrine/doctrine-module/config/module.config.php)
+     * (@see \DoctrineModule\Service\CacheFactory)
+     *
+     * @var string
+     */
+    protected $entityMapDoctrineCache;
+
+    /**
+     * Префикс используемы для генерации ключа кеширования карты сущностей doctrine
+     *
+     * @var string
+     */
+    protected $entityMapDoctrineCachePrefix;
 
     /**
      * Строка, используемая как разделитель в полном имени класса сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
@@ -147,6 +165,54 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     public function setEntityNamePostfix($entityNamePostfix)
     {
         $this->entityNamePostfix = $entityNamePostfix;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache
+     *
+     * @return string
+     */
+    public function getEntityMapDoctrineCache()
+    {
+        return $this->entityMapDoctrineCache;
+    }
+
+    /**
+     * Устанавливает имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache
+     *
+     * @param string $entityMapDoctrineCache
+     *
+     * @return $this
+     */
+    public function setEntityMapDoctrineCache($entityMapDoctrineCache)
+    {
+        $this->entityMapDoctrineCache = $entityMapDoctrineCache;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает префикс используемы для генерации ключа кеширования карты сущностей doctrine
+     *
+     * @return string
+     */
+    public function getEntityMapDoctrineCachePrefix()
+    {
+        return $this->entityMapDoctrineCachePrefix;
+    }
+
+    /**
+     * Возвращает префикс используемы для генерации ключа кеширования карты сущностей doctrine
+     *
+     * @param string $entityMapDoctrineCachePrefix
+     *
+     * @return $this
+     */
+    public function setEntityMapDoctrineCachePrefix($entityMapDoctrineCachePrefix)
+    {
+        $this->entityMapDoctrineCachePrefix = $entityMapDoctrineCachePrefix;
 
         return $this;
     }

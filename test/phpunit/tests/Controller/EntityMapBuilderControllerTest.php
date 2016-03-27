@@ -7,6 +7,12 @@ namespace Nnx\Doctrine\PhpUnit\Test\Controller;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use Nnx\Doctrine\Utils\EntityMapCacheInterface;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder\TestModule1\Entity\TestEntity\TestEntityInterface as TestEntity1Interface;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder\TestModule2\Entity\TestEntity\TestEntityInterface as TestEntity2Interface;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder\TestModule3\Entity\TestEntity\TestEntityInterface as TestEntity3Interface;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder\TestModule2\Entity\TestEntity\TestEntity as TestEntity2;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder\TestModule3\Entity\TestEntity\TestEntity as TestEntity3;
 
 /**
  * Class EntityMapBuilderController
@@ -19,16 +25,36 @@ class EntityMapBuilderControllerTest extends AbstractConsoleControllerTestCase
      * Тестирование генерация карты сущностей и сохранение ее в кеше
      *
      * @return void
+     *
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Exception
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function testBuildAction()
     {
 
         /** @noinspection PhpIncludeInspection */
         $this->setApplicationConfig(
-            include TestPaths::getPathToEntityAutoResolveAppConfig()
+            include TestPaths::getPathToEntityMapBuilderAppConfig()
         );
 
-        $this->dispatch('entity-map build --objectManager=doctrine.entitymanager.test');
+        $objectManager = 'doctrine.entitymanager.test';
+
+        /** @var EntityMapCacheInterface $entityMapCache */
+        $entityMapCache = $this->getApplication()->getServiceManager()->get(EntityMapCacheInterface::class);
+        $entityMapCache->deleteEntityMap($objectManager);
+
+        $this->dispatch("entity-map build --objectManager={$objectManager}");
+
+        $actualEntityMap = $entityMapCache->loadEntityMap($objectManager);
+
+        $expectedEntityMap = [
+            TestEntity3Interface::class => TestEntity3::class,
+            TestEntity1Interface::class => TestEntity3::class,
+            TestEntity2Interface::class => TestEntity2::class,
+        ];
+
+        static::assertEquals($expectedEntityMap, $actualEntityMap);
     }
 
     /**
@@ -36,13 +62,16 @@ class EntityMapBuilderControllerTest extends AbstractConsoleControllerTestCase
      * ObjectManager
      *
      * @return void
+     *
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Exception
      */
     public function testBuildActionInvalidObjectManagerName()
     {
 
         /** @noinspection PhpIncludeInspection */
         $this->setApplicationConfig(
-            include TestPaths::getPathToEntityAutoResolveAppConfig()
+            include TestPaths::getPathToEntityMapBuilderAppConfig()
         );
 
 

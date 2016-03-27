@@ -12,6 +12,17 @@ namespace Nnx\Doctrine\PhpUnit\TestData;
  */
 class TestPaths
 {
+
+    /**
+     * Путь до директории в которой кешируется данные
+     *
+     * @return string
+     */
+    public static function getPathToDoctrineModuleFilesystemCacheDir()
+    {
+        return __DIR__ . '/../../../data/test/DoctrineModule/cache/';
+    }
+
     /**
      * Возвращает путь путь до директории в которой создаются прокси классы для сущностей доктрины
      *
@@ -72,5 +83,28 @@ class TestPaths
     public static function getPathToEntityAutoResolveAppConfig()
     {
         return  __DIR__ . '/../_files/EntityAutoResolve/application.config.php';
+    }
+
+
+    /**
+     * Путь до директории в которой расположены модули приложения, используемого для тестирования построения кешя для карты
+     * сущностей
+     *
+     * @return string
+     */
+    public static function getPathToEntityMapBuilderAppModuleDir()
+    {
+        return  __DIR__ . '/../_files/EntityMapBuilder/module/';
+    }
+
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования генерации и сохранения карту сущностей
+     *
+     * @return string
+     */
+    public static function getPathToEntityMapBuilderAppConfig()
+    {
+        return  __DIR__ . '/../_files/EntityMapBuilder/application.config.php';
     }
 }

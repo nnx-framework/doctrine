@@ -12,6 +12,7 @@ use Nnx\Doctrine\EntityManager\EntityManagerInterface;
 use ReflectionClass;
 use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
 
+
 /**
  * Class EntityMapBuilder
  *
@@ -41,6 +42,7 @@ class EntityMapBuilder implements EntityMapBuilderInterface
      */
     protected $entityManager;
 
+
     /**
      * EntityMapBuilder constructor.
      *
@@ -57,6 +59,7 @@ class EntityMapBuilder implements EntityMapBuilderInterface
         $this->setModuleOptionsPluginManager($moduleOptionsPluginManager);
         $this->setEntityManager($entityManager);
     }
+
 
     /**
      * @inheritdoc
@@ -79,7 +82,7 @@ class EntityMapBuilder implements EntityMapBuilderInterface
         $entityManager = $this->getEntityManager();
         foreach ($listEntityInterfaces as $currentInterface) {
             if ($entityManager->hasEntityClassByInterface($currentInterface)) {
-                $map[$currentInterface] = $entityManager->get($currentInterface);
+                $map[$currentInterface] = $entityManager->getEntityClassByInterface($currentInterface);
             }
         }
 

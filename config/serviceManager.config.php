@@ -17,6 +17,8 @@ use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigInterface;
 use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigFactory;
 use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
 use Nnx\Doctrine\Utils\EntityMapBuilderFactory;
+use Nnx\Doctrine\Utils\EntityMapCacheInterface;
+use Nnx\Doctrine\Utils\EntityMapCacheFactory;
 
 return [
     'service_manager' => [
@@ -28,7 +30,8 @@ return [
             ObjectManagerAutoDetectorInterface::class => ObjectManagerAutoDetectorFactory::class,
             OrmEntityLocatorInterface::class          => OrmEntityLocatorFactory::class,
             DoctrineOrmModuleConfigInterface::class   => DoctrineOrmModuleConfigFactory::class,
-            EntityMapBuilderInterface::class => EntityMapBuilderFactory::class
+            EntityMapBuilderInterface::class => EntityMapBuilderFactory::class,
+            EntityMapCacheInterface::class => EntityMapCacheFactory::class
         ],
         'abstract_factories' => [
 

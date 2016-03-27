@@ -71,7 +71,7 @@ class EntityManager extends AbstractPluginManager implements EntityManagerInterf
      */
     public function getEntityClassByInterface($interfaceName)
     {
-        if ($this->hasEntityClassByInterface($interfaceName)) {
+        if (!$this->hasEntityClassByInterface($interfaceName)) {
             $errMsg = sprintf('Error build entity class name for %s', $interfaceName) ;
             throw new Exception\ErrorBuildEntityClassNameException($errMsg);
         }

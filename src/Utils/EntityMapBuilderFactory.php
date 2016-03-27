@@ -11,6 +11,7 @@ use Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface;
 use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
 use Nnx\Doctrine\EntityManager\EntityManagerInterface;
 
+
 /**
  * Class EntityMapBuilderFactory
  *

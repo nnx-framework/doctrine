@@ -43,4 +43,19 @@ interface ModuleOptionsInterface
      * @return string
      */
     public function getEntityNamePostfix();
+
+
+    /**
+     * Возвращает имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache
+     *
+     * @return string
+     */
+    public function getEntityMapDoctrineCache();
+
+    /**
+     * Возвращает префикс используемый для генерации ключа кеширования карты сущностей doctrine
+     *
+     * @return string
+     */
+    public function getEntityMapDoctrineCachePrefix();
 }

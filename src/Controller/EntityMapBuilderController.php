@@ -9,7 +9,7 @@ use Zend\Mvc\Controller\AbstractConsoleController;
 use Zend\Console\Request;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ConsoleModel;
-use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
+use Nnx\Doctrine\Utils\EntityMapCacheInterface;
 
 /**
  * Class EntityMapBuilderController
@@ -26,22 +26,22 @@ class EntityMapBuilderController extends AbstractConsoleController
     protected $doctrineObjectManager;
 
     /**
-     * Билдер для генерации карты сущностей
+     * Сервис для кеширования EntityMap
      *
-     * @var EntityMapBuilderInterface
+     * @var EntityMapCacheInterface
      */
-    protected $entityMapBuilder;
+    protected $entityMapCache;
 
     /**
      * EntityMapBuilderController constructor.
      *
-     * @param ContainerInterface        $doctrineObjectManager
-     * @param EntityMapBuilderInterface $entityMapBuilder
+     * @param ContainerInterface      $doctrineObjectManager
+     * @param EntityMapCacheInterface $entityMapCache
      */
-    public function __construct(ContainerInterface $doctrineObjectManager, EntityMapBuilderInterface $entityMapBuilder)
+    public function __construct(ContainerInterface $doctrineObjectManager, EntityMapCacheInterface $entityMapCache)
     {
         $this->setDoctrineObjectManager($doctrineObjectManager);
-        $this->setEntityMapBuilder($entityMapBuilder);
+        $this->setEntityMapCache($entityMapCache);
     }
 
 
@@ -61,9 +61,18 @@ class EntityMapBuilderController extends AbstractConsoleController
             ];
         }
 
-        $entityMap = $this->getEntityMapBuilder()->buildEntityMapByObjectManagerName($managerName);
+        $this->getEntityMapCache()->saveEntityMap($managerName);
 
-        $result = '';
+        $entityMap = $this->getEntityMapCache()->loadEntityMap($managerName);
+
+        if (is_array($entityMap)) {
+            $result = "Entity map:\n";
+            foreach ($entityMap as $interfaceName => $className) {
+                $result .= sprintf("Interface  name: %s. Class name: %s \n", $interfaceName, $className);
+            }
+        } else {
+            $result = 'Empty entity map';
+        }
 
 
         return [
@@ -96,25 +105,25 @@ class EntityMapBuilderController extends AbstractConsoleController
     }
 
     /**
-     * Возвращает билдер для генерации карты сущностей
+     * Возвращает сервис для кеширования EntityMap
      *
-     * @return EntityMapBuilderInterface
+     * @return EntityMapCacheInterface
      */
-    public function getEntityMapBuilder()
+    public function getEntityMapCache()
     {
-        return $this->entityMapBuilder;
+        return $this->entityMapCache;
     }
 
     /**
-     * Устанавливает билдер для генерации карты сущностей
+     * Устанавливает сервис для кеширования EntityMap
      *
-     * @param EntityMapBuilderInterface $entityMapBuilder
+     * @param EntityMapCacheInterface $entityMapCache
      *
      * @return $this
      */
-    public function setEntityMapBuilder(EntityMapBuilderInterface $entityMapBuilder)
+    public function setEntityMapCache(EntityMapCacheInterface $entityMapCache)
     {
-        $this->entityMapBuilder = $entityMapBuilder;
+        $this->entityMapCache = $entityMapCache;
 
         return $this;
     }
