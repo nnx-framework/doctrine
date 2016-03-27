@@ -21,7 +21,9 @@ use Nnx\Doctrine\ObjectManager\DoctrineObjectManager;
 use Nnx\Doctrine\ObjectManager\DoctrineObjectManagerProviderInterface;
 use Nnx\Doctrine\EntityManager\EntityManager;
 use Nnx\Doctrine\EntityManager\EntityManagerProviderInterface;
-
+use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
+use Zend\Console\Adapter\AdapterInterface as Console;
 
 /**
  * Class Module
@@ -32,7 +34,9 @@ class Module implements
     BootstrapListenerInterface,
     AutoloaderProviderInterface,
     InitProviderInterface,
-    ConfigProviderInterface
+    ConfigProviderInterface,
+    ConsoleUsageProviderInterface,
+    ConsoleBannerProviderInterface
 {
     /**
      * Имя секции в конфиги приложения отвечающей за настройки модуля
@@ -123,5 +127,33 @@ class Module implements
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param Console $console
+     *
+     * @return string
+     */
+    public function getConsoleBanner(Console $console){
+        return 'Tools for entity map';
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param Console $console
+     *
+     * @return array
+     */
+    public function getConsoleUsage(Console $console){
+        return [
+            'Entity map builder',
+            'entity-map build --objectManager=' => 'Generation entity maps and cached',
+            ['--objectManager=MANAGER_NAME', 'ObjectManager name'],
+            'entity-map clear --objectManager=' => 'Clear entity maps from cached',
+            ['--objectManager=MANAGER_NAME', 'ObjectManager name'],
+        ];
     }
 } 
