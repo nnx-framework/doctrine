@@ -45,6 +45,9 @@
     "doctrine/orm": "~2.5.0",
     "doctrine/doctrine-orm-module": "~0.10.0"
   },
+  "suggest": {
+    "doctrine/doctrine-orm-module": "Use doctrine-orm-module for entity manager"
+  },
   "autoload": {
     "psr-4": {
       "Nnx\\Doctrine\\": "src/"
