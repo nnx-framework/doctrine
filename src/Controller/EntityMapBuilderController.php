@@ -61,9 +61,14 @@ class EntityMapBuilderController extends AbstractConsoleController
             ];
         }
 
-        $this->getEntityMapCache()->saveEntityMap($managerName);
+        $entityMapCache = $this->getEntityMapCache();
+        if ($entityMapCache->hasEntityMap($managerName)) {
+            $entityMapCache->deleteEntityMap($managerName);
+        }
+        $entityMapCache->saveEntityMap($managerName);
 
-        $entityMap = $this->getEntityMapCache()->loadEntityMap($managerName);
+
+        $entityMap = $entityMapCache->loadEntityMap($managerName);
 
         if (is_array($entityMap)) {
             $result = "Entity map:\n";

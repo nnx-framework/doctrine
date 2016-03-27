@@ -115,6 +115,20 @@ class EntityMapCache implements EntityMapCacheInterface
     }
 
     /**
+     * Проверяет есть ли в кеше карта сущностей для заданного ObjectManager
+     *
+     * @param $objectManagerName
+     *
+     * @return array|null
+     */
+    public function hasEntityMap($objectManagerName)
+    {
+        $key = $this->getCacheKeyForObjectManagerName($objectManagerName);
+
+        return $this->getCache()->contains($key);
+    }
+
+    /**
      * Получает ключ для кеширования карты сущностей
      *
      * @param $objectManagerName

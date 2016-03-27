@@ -40,4 +40,13 @@ interface EntityMapCacheInterface
      * @return void
      */
     public function deleteEntityMap($objectManagerName);
+
+    /**
+     * Проверяет есть ли в кеше карта сущностей для заданного ObjectManager
+     *
+     * @param $objectManagerName
+     *
+     * @return array|null
+     */
+    public function hasEntityMap($objectManagerName);
 }

@@ -35,4 +35,12 @@ interface DoctrineOrmModuleConfigInterface
      * @return array
      */
     public function getNamespacesIndexByObjectManagerName($objectManagerServiceName);
+
+
+    /**
+     * Список ObjectManager'ов декларированных в настройках модуля DoctrineOrmModule
+     *
+     * @return array
+     */
+    public function getListObjectManagerName();
 }

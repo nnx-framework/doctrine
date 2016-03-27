@@ -47,6 +47,13 @@ class DoctrineOrmModuleConfig implements DoctrineOrmModuleConfigInterface
     protected $moduleOptions;
 
     /**
+     * Список имен ObjectManager'ов
+     *
+     * @var array|null
+     */
+    protected $listObjectManagerName;
+
+    /**
      * DoctrineOrmModuleConfig constructor.
      *
      * @param array                  $doctrineConfig
@@ -81,6 +88,34 @@ class DoctrineOrmModuleConfig implements DoctrineOrmModuleConfigInterface
         $this->doctrineConfig = $doctrineConfig;
 
         return $this;
+    }
+
+    /**
+     * Список ObjectManager'ов декларированных в настройках модуля DoctrineOrmModule
+     *
+     * @return array
+     */
+    public function getListObjectManagerName()
+    {
+        if ($this->listObjectManagerName) {
+            return $this->listObjectManagerName;
+        }
+
+        if (!$this->isValidDoctrineOrmModuleEntityManagerConfig()) {
+            $this->listObjectManagerName = [];
+            return $this->listObjectManagerName;
+        }
+
+        $doctrineConfig = $this->getDoctrineConfig();
+
+        $listObjectManagerName = array_keys($doctrineConfig['entitymanager']);
+        $prepareListObjectManagerName = array_map(function ($objectManagerName) {
+            return 'doctrine.entitymanager.' . $objectManagerName;
+        }, $listObjectManagerName);
+
+        $this->listObjectManagerName = array_combine($listObjectManagerName, $prepareListObjectManagerName);
+
+        return $this->listObjectManagerName;
     }
 
     /**
@@ -214,9 +249,21 @@ class DoctrineOrmModuleConfig implements DoctrineOrmModuleConfigInterface
     {
         $doctrineConfig = $this->getDoctrineConfig();
 
-        return array_key_exists('entitymanager', $doctrineConfig) && is_array($doctrineConfig['entitymanager'])
+        return $this->isValidDoctrineOrmModuleEntityManagerConfig()
                && array_key_exists('configuration', $doctrineConfig) && is_array($doctrineConfig['configuration'])
                && array_key_exists('driver', $doctrineConfig) && is_array($doctrineConfig['driver']);
+    }
+
+    /**
+     * Проверяет есть ли в конфиги корректная секция описывающая настройки entitymanager
+     *
+     * @return bool
+     */
+    public function isValidDoctrineOrmModuleEntityManagerConfig()
+    {
+        $doctrineConfig = $this->getDoctrineConfig();
+
+        return array_key_exists('entitymanager', $doctrineConfig) && is_array($doctrineConfig['entitymanager']);
     }
 
     /**
