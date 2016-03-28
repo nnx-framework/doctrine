@@ -57,6 +57,7 @@ return array_merge_recursive(
     include __DIR__ . '/serviceManager.config.php',
     include __DIR__ . '/controllers.config.php',
     include __DIR__ . '/console.config.php',
+    include __DIR__ . '/hydrators.config.php',
 
     $config
 );

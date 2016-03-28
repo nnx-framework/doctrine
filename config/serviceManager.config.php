@@ -19,26 +19,30 @@ use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
 use Nnx\Doctrine\Utils\EntityMapBuilderFactory;
 use Nnx\Doctrine\Utils\EntityMapCacheInterface;
 use Nnx\Doctrine\Utils\EntityMapCacheFactory;
+use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorInterface;
+use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorFactory;
+
 
 return [
     'service_manager' => [
         'invokables'         => [
             DoctrineObjectManagerInterface::class => DoctrineObjectManager::class,
-            EntityManagerInterface::class => EntityManager::class
+            EntityManagerInterface::class         => EntityManager::class
         ],
         'factories'          => [
-            ObjectManagerAutoDetectorInterface::class => ObjectManagerAutoDetectorFactory::class,
-            OrmEntityLocatorInterface::class          => OrmEntityLocatorFactory::class,
-            DoctrineOrmModuleConfigInterface::class   => DoctrineOrmModuleConfigFactory::class,
-            EntityMapBuilderInterface::class => EntityMapBuilderFactory::class,
-            EntityMapCacheInterface::class => EntityMapCacheFactory::class
+            ObjectManagerAutoDetectorInterface::class     => ObjectManagerAutoDetectorFactory::class,
+            OrmEntityLocatorInterface::class              => OrmEntityLocatorFactory::class,
+            DoctrineOrmModuleConfigInterface::class       => DoctrineOrmModuleConfigFactory::class,
+            EntityMapBuilderInterface::class              => EntityMapBuilderFactory::class,
+            EntityMapCacheInterface::class                => EntityMapCacheFactory::class,
+            DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class
         ],
         'abstract_factories' => [
 
         ],
-        'aliases' => [
+        'aliases'            => [
             DoctrineObjectManager::class => DoctrineObjectManagerInterface::class,
-            EntityManager::class => EntityManagerInterface::class
+            EntityManager::class         => EntityManagerInterface::class
         ]
     ],
 ];

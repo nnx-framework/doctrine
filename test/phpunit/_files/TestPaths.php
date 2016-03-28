@@ -97,6 +97,16 @@ class TestPaths
         return  __DIR__ . '/../_files/EntityMapBuilder/module/';
     }
 
+    /**
+     * Путь до директории в которой расположены модули приложения, используемого для тестирования работы абстрактной фабрики
+     * для создания DoctrineObjectHydrator
+     *
+     * @return string
+     */
+    public static function getPathToDoctrineObjectHydratorAppModuleDir()
+    {
+        return  __DIR__ . '/../_files/DoctrineObjectHydrator/module/';
+    }
 
     /**
      * Путь до конфига приложения, используемого для тестирования генерации и сохранения карту сущностей
@@ -106,5 +116,17 @@ class TestPaths
     public static function getPathToEntityMapBuilderAppConfig()
     {
         return  __DIR__ . '/../_files/EntityMapBuilder/application.config.php';
+    }
+
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования работы абстрактной фабрики
+     * для создания DoctrineObjectHydrator
+     *
+     * @return string
+     */
+    public static function getPathToDoctrineObjectHydratorAppConfig()
+    {
+        return  __DIR__ . '/../_files/DoctrineObjectHydrator/application.config.php';
     }
 }

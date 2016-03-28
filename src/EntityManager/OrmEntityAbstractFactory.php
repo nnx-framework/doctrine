@@ -50,7 +50,12 @@ class OrmEntityAbstractFactory implements AbstractFactoryInterface
         /** @var OrmEntityLocatorInterface $ormEntityLocator */
         $ormEntityLocator = $appServiceLocator->get(OrmEntityLocatorInterface::class);
 
-        return $ormEntityLocator->has($requestedName);
+        $hasOrmEntity = $ormEntityLocator->has($requestedName);
+        if (false === $hasOrmEntity) {
+            $this->prototype[$requestedName] = false;
+        }
+
+        return $hasOrmEntity;
     }
 
     /**
