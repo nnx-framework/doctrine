@@ -109,15 +109,10 @@ class DiscriminatorEntryListener implements EventSubscriber
             return;
         }
 
-        //Сущность не участвует в цепочке наследования. 
         if (
-            ClassMetadataInfo::INHERITANCE_TYPE_SINGLE_TABLE !== $classMetadata->inheritanceType
-            && ClassMetadataInfo::INHERITANCE_TYPE_JOINED !== $classMetadata->inheritanceType
-        ) {
-            return;
-        }
-
-        if ($classMetadata->name !== $classMetadata->rootEntityName && $this->hasDiscriminatorValue($classMetadata->name)) {
+            !$classMetadata->isRootEntity()
+            && !$classMetadata->isInheritanceTypeNone()
+            && $this->hasDiscriminatorValue($classMetadata->name)) {
             $discriminatorValue = $this->getDiscriminatorValue($classMetadata->name);
             $classMetadata->discriminatorValue = $discriminatorValue;
             $rootEntityMetadata = $eventArgs->getEntityManager()->getClassMetadata($classMetadata->rootEntityName);
