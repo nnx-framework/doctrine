@@ -11,7 +11,7 @@ use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 use Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface;
 use Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity\TestEntity as TestEntity1;
 use Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity\NS\TestEntity as TestEntity2;
-use Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity\Entity  as TestEntity3;
+
 
 /**
  * Class DiscriminatorEntryFunctionalTest
@@ -47,9 +47,8 @@ class DiscriminatorEntryFunctionalTest extends AbstractConsoleControllerTestCase
     }
 
 
-
     /**
-     *
+     * Проверка возможности заполнять discriminatorMap корневой сущности, через анотации сущностей потомков
      *
      * @return void
      *
@@ -57,7 +56,7 @@ class DiscriminatorEntryFunctionalTest extends AbstractConsoleControllerTestCase
      * @throws \Exception
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
-    public function testBuildAction()
+    public function testDiscriminatorEntry()
     {
 
         /** @noinspection PhpIncludeInspection */
@@ -72,13 +71,15 @@ class DiscriminatorEntryFunctionalTest extends AbstractConsoleControllerTestCase
 
         $e1 = new TestEntity1();
         $e2 = new TestEntity2();
-        $e3 = new TestEntity3();
 
         $em->persist($e1);
         $em->persist($e2);
-        $em->persist($e3);
-
 
         $em->flush();
+        $em->clear();
+
+        $actualE2 = $em->getRepository(TestEntity1::class)->find($e2->getId());
+
+        static::assertInstanceOf(TestEntity2::class, $actualE2);
     }
 }
