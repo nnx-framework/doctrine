@@ -58,4 +58,12 @@ interface ModuleOptionsInterface
      * @return string
      */
     public function getEntityMapDoctrineCachePrefix();
+
+
+    /**
+     * Возвращает имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache для кеширования метаданных сущности
+     *
+     * @return string
+     */
+    public function getMetadataReaderCache();
 }

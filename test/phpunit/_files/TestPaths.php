@@ -108,6 +108,18 @@ class TestPaths
         return  __DIR__ . '/../_files/DoctrineObjectHydrator/module/';
     }
 
+
+    /**
+     * Путь до директории в которой расположены модули приложения, используемого для функционала работы с DiscriminatorMap
+     * доктрины
+     *
+     * @return string
+     */
+    public static function getPathToDiscriminatorEntryAppModuleDir()
+    {
+        return  __DIR__ . '/../_files/DiscriminatorEntry/module/';
+    }
+
     /**
      * Путь до конфига приложения, используемого для тестирования генерации и сохранения карту сущностей
      *
@@ -128,5 +140,16 @@ class TestPaths
     public static function getPathToDoctrineObjectHydratorAppConfig()
     {
         return  __DIR__ . '/../_files/DoctrineObjectHydrator/application.config.php';
+    }
+
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования работы функционала расширяющего возможности DiscriminatorMap
+     *
+     * @return string
+     */
+    public static function getPathToDiscriminatorEntryAppConfig()
+    {
+        return  __DIR__ . '/../_files/DiscriminatorEntry/application.config.php';
     }
 }

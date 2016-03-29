@@ -46,7 +46,17 @@ $config = [
          * Префикс используемый для генерации ключа кеширования карты сущностей doctrine
          *
          */
-        'entityMapDoctrineCachePrefix' => 'nnx_entity_map_'
+        'entityMapDoctrineCachePrefix' => 'nnx_entity_map_',
+
+        /**
+         * Имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache для кеширования метаданных сущности
+         *
+         * (@see https://github.com/doctrine/DoctrineModule)
+         * (@see vendor/doctrine/doctrine-module/config/module.config.php)
+         * (@see \DoctrineModule\Service\CacheFactory)
+         *
+         */
+        'metadataReaderCache' => 'doctrine.cache.array'
     ]
 ];
 

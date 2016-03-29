@@ -21,6 +21,8 @@ use Nnx\Doctrine\Utils\EntityMapCacheInterface;
 use Nnx\Doctrine\Utils\EntityMapCacheFactory;
 use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorInterface;
 use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorFactory;
+use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListener;
+use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListenerFactory;
 
 
 return [
@@ -35,7 +37,8 @@ return [
             DoctrineOrmModuleConfigInterface::class       => DoctrineOrmModuleConfigFactory::class,
             EntityMapBuilderInterface::class              => EntityMapBuilderFactory::class,
             EntityMapCacheInterface::class                => EntityMapCacheFactory::class,
-            DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class
+            DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class,
+            DiscriminatorEntryListener::class             => DiscriminatorEntryListenerFactory::class
         ],
         'abstract_factories' => [
 

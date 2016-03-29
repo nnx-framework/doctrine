@@ -71,6 +71,17 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     protected $entityMapDoctrineCachePrefix;
 
     /**
+     * Имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache для кеширования метаданных сущности
+     *
+     * (@see https://github.com/doctrine/DoctrineModule)
+     * (@see vendor/doctrine/doctrine-module/config/module.config.php)
+     * (@see \DoctrineModule\Service\CacheFactory)
+     *
+     * @var string
+     */
+    protected $metadataReaderCache;
+
+    /**
      * Строка, используемая как разделитель в полном имени класса сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
      *
      * @return string
@@ -213,6 +224,30 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     public function setEntityMapDoctrineCachePrefix($entityMapDoctrineCachePrefix)
     {
         $this->entityMapDoctrineCachePrefix = $entityMapDoctrineCachePrefix;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return string
+     */
+    public function getMetadataReaderCache()
+    {
+        return $this->metadataReaderCache;
+    }
+
+    /**
+     * Устанавливает имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache для кеширования метаданных сущности
+     *
+     * @param string $metadataReaderCache
+     *
+     * @return $this
+     */
+    public function setMetadataReaderCache($metadataReaderCache)
+    {
+        $this->metadataReaderCache = $metadataReaderCache;
 
         return $this;
     }
