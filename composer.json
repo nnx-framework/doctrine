@@ -50,7 +50,7 @@
     "zendframework/zend-i18n": "~2.4.0",
 
 
-    "doctrine/doctrine-orm-module": "~0.10.0"
+    "doctrine/doctrine-orm-module": "~0.1.10"
   },
   "suggest": {
     "doctrine/doctrine-orm-module": "Use doctrine-orm-module for entity manager"
