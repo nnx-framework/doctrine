@@ -110,15 +110,23 @@ class DiscriminatorEntryListener implements EventSubscriber
         }
 
         //Сущность не участвует в цепочке наследования. 
-        if (ClassMetadataInfo::INHERITANCE_TYPE_SINGLE_TABLE !== $classMetadata->inheritanceType && ClassMetadataInfo::INHERITANCE_TYPE_JOINED !== $classMetadata->inheritanceType) {
+        if (
+            ClassMetadataInfo::INHERITANCE_TYPE_SINGLE_TABLE !== $classMetadata->inheritanceType
+            && ClassMetadataInfo::INHERITANCE_TYPE_JOINED !== $classMetadata->inheritanceType
+        ) {
             return;
         }
 
-        $class = $classMetadata->getName();
-        if ($class !== $classMetadata->rootEntityName && $this->hasDiscriminatorValue($classMetadata->name)) {
+        if ($classMetadata->name !== $classMetadata->rootEntityName && $this->hasDiscriminatorValue($classMetadata->name)) {
             $discriminatorValue = $this->getDiscriminatorValue($classMetadata->name);
             $classMetadata->discriminatorValue = $discriminatorValue;
             $rootEntityMetadata = $eventArgs->getEntityManager()->getClassMetadata($classMetadata->rootEntityName);
+
+            if (array_key_exists($discriminatorValue, $rootEntityMetadata->discriminatorMap)) {
+                $errMsg = sprintf('Found duplicate discriminator map entry \'%s\' in %s', $discriminatorValue,  $classMetadata->name);
+                throw new Exception\DuplicateDiscriminatorMapEntryException($errMsg);
+            }
+
             $rootEntityMetadata->addDiscriminatorMapClass($discriminatorValue, $classMetadata->name);
         }
     }
