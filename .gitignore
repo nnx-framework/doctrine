@@ -21,3 +21,5 @@ extras/documentation
 .idea
 composer.lock
 phpunit.xml
+*.tmp
+
