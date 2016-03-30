@@ -13,6 +13,7 @@ use ReflectionClass;
 use Nnx\Doctrine\Annotation\DiscriminatorEntry;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
@@ -109,21 +110,81 @@ class DiscriminatorEntryListener implements EventSubscriber
             return;
         }
 
-        if (
-            !$classMetadata->isRootEntity()
-            && !$classMetadata->isInheritanceTypeNone()
-            && $this->hasDiscriminatorValue($classMetadata->name)) {
-            $discriminatorValue = $this->getDiscriminatorValue($classMetadata->name);
-            $classMetadata->discriminatorValue = $discriminatorValue;
-            $rootEntityMetadata = $eventArgs->getEntityManager()->getClassMetadata($classMetadata->rootEntityName);
-
-            if (array_key_exists($discriminatorValue, $rootEntityMetadata->discriminatorMap)) {
-                $errMsg = sprintf('Found duplicate discriminator map entry \'%s\' in %s', $discriminatorValue,  $classMetadata->name);
-                throw new Exception\DuplicateDiscriminatorMapEntryException($errMsg);
-            }
-
-            $rootEntityMetadata->addDiscriminatorMapClass($discriminatorValue, $classMetadata->name);
+        //Сущность не участвует в цепочке наследования.
+        if ($classMetadata->isInheritanceTypeNone()) {
+            return;
         }
+
+
+        if ($classMetadata->isRootEntity()) {
+            $allClassNames = $this->getAllClassNamesByEntityManager($eventArgs->getEntityManager());
+            $this->buildDiscriminatorMapRootEntity($classMetadata, $allClassNames);
+        } else {
+            $this->buildDiscriminatorMapChildEntity($classMetadata);
+        }
+    }
+
+    /**
+     * Собрать карту дескиминаторов для коренвой сущности
+     *
+     * @param ClassMetadataInfo $classMetadata
+     * @param array             $allClassNames
+     *
+     * @throws Exception\DiscriminatorValueNotFoundException
+     * @throws Exception\DuplicateDiscriminatorMapEntryException
+     * @throws \Doctrine\ORM\Mapping\MappingException
+     */
+    public function buildDiscriminatorMapRootEntity(ClassMetadataInfo $classMetadata, array $allClassNames = [])
+    {
+        foreach ($allClassNames as $className) {
+            if (is_subclass_of($className, $classMetadata->name) && $this->hasDiscriminatorValue($className)) {
+                $discriminatorValue = $this->getDiscriminatorValue($className);
+
+                if (array_key_exists($discriminatorValue, $classMetadata->discriminatorMap)) {
+                    $errMsg = sprintf('Found duplicate discriminator map entry \'%s\' in %s', $discriminatorValue,  $className);
+                    throw new Exception\DuplicateDiscriminatorMapEntryException($errMsg);
+                }
+                $classMetadata->addDiscriminatorMapClass($discriminatorValue, $className);
+            }
+        }
+    }
+
+    /**
+     * Добавляет в сущности потомке DiscriminatorMap. Вызов addDiscriminatorMapClass приводит к тому что проставляется
+     * корректное значение discriminatorValue
+     *
+     * @param ClassMetadataInfo $classMetadata
+     *
+     * @throws Exception\DiscriminatorValueNotFoundException
+     * @throws \Doctrine\ORM\Mapping\MappingException
+     */
+    public function buildDiscriminatorMapChildEntity(ClassMetadataInfo $classMetadata)
+    {
+        if ($this->hasDiscriminatorValue($classMetadata->name)) {
+            $discriminatorValue = $this->getDiscriminatorValue($classMetadata->name);
+            $classMetadata->addDiscriminatorMapClass($discriminatorValue, $classMetadata->name);
+        }
+    }
+
+    /**
+     * Получить список всех классов сущностей для заданного EntityManager'a
+     *
+     * @param EntityManagerInterface $em
+     *
+     * @return array
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function getAllClassNamesByEntityManager(EntityManagerInterface $em)
+    {
+        $hash = spl_object_hash($em);
+        if (array_key_exists($hash, $this->entityManagerAllClassNames)) {
+            return $this->entityManagerAllClassNames[$hash];
+        }
+
+        $this->entityManagerAllClassNames[$hash] = $em->getConfiguration()->getMetadataDriverImpl()->getAllClassNames();
+
+        return $this->entityManagerAllClassNames[$hash];
     }
 
     /**
@@ -143,7 +204,7 @@ class DiscriminatorEntryListener implements EventSubscriber
 
     /**
      * Получить значение discriminatorValue для класса
-     * 
+     *
      * @param $className
      *
      * @return string

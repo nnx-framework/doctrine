@@ -8,16 +8,16 @@ namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class TestEntity
+ * Class RootEntity
  *
  * @package Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity
  *
  * @ORM\Entity()
  * @ORM\DiscriminatorMap()
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorMap(value={ "testEntity" = "TestEntity" })
+ * @ORM\DiscriminatorMap(value={ "rootEntity" = "RootEntity" })
  */
-class TestEntity
+class RootEntity
 {
     /**
      * @var integer
