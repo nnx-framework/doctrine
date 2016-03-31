@@ -3,7 +3,7 @@
 Модуль предоставляет отдельный менеджер плагинов \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface,
 предназначеный для централизации работы с ObjectManager'ами Doctrine2.
 
-Данный плагин менеджер предоставляет унифицированный способ получения экзепляров объектов реализующих \Doctrine\Common\Persistence\ObjectManager.
+Данный плагин менеджер предоставляет унифицированный способ получения экземпляров объектов, реализующих \Doctrine\Common\Persistence\ObjectManager.
 
 Характеристика                                                   |Значение
 -----------------------------------------------------------------|------------------------------------------------------------------
@@ -14,8 +14,8 @@
 
 ## Интеграция с doctrine/doctrine-orm-module
 
-Плаги менеджер \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface, реализует нативную интеграцию с doctrine/doctrine-orm-module.
-Так например для получения экземпляра \Doctrine\ORM\EntityManager. Можно использовать следующий код:
+Плагин менеджер \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface, реализует нативную интеграцию с doctrine/doctrine-orm-module.
+Так,например, для получения экземпляра \Doctrine\ORM\EntityManager. Можно использовать следующий код:
 
 ```php
 
@@ -36,7 +36,7 @@ $objectManager = $doctrineObjectManager->get('doctrine.entitymanager.orm_default
 Если класс описывающий настройки модуля реализует \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface, то
 считается что данный класс может предоставить имя ObjectManager'a по умолчанию для данного модуля.
 
-Также есть трейт \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderTrait, реализующий методы дикларированные в 
+Также есть трейт \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderTrait, реализующий методы декларированные в 
 \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface.
 
 Пример использования:
@@ -60,8 +60,8 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, O
 
 ## Сервис для автоматического получения ObjectManager'a
 
-Если модуль реализует поддержку стандартного механизма получения своих настроект(т.е. подходит под стандарты nnx/module-options),
-есть возможность автоматически, по имени любого класса входящего в этот модуль, получать имя ObjectManager'a, либо сам ObjectManager'a.
+Если модуль реализует поддержку стандартного механизма получения своих настроек (т.е. подходит под стандарты nnx/module-options),
+есть возможность автоматически, по имени любого класса, входящего в этот модуль, получать имя ObjectManager'a, либо сам ObjectManager'a.
 
 Для этих целей предназначен сервис \Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface.
 
