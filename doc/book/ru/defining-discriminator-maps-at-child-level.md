@@ -23,7 +23,7 @@ return [
 
 Корневая сущность:
 
-```
+```php
 namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
