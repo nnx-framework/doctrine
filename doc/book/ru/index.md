@@ -5,6 +5,10 @@
 ## Оглавление
 - [Object Manager](object-manager.md)
 - Entity Manager
--- [Описание EntityManager'a](entity-manager.md)
--- [Автоопределение класса сущности по его интерфейсу](auto-resolve-entity-class-name.md)
+    - [Описание EntityManager'a](entity-manager.md)
+    - [Автоопределение класса сущности по его интерфейсу](auto-resolve-entity-class-name.md)
 - (Определение Discriminator Maps на уровне сущностей-потомков)[defining-discriminator-maps-at-child-level.md]
+- Гидраторы
+    - [DoctrineObjectHydrator](doctrine-object-hydrator.md)
+    
+
