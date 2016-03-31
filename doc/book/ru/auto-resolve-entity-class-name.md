@@ -4,6 +4,11 @@
 
 ## Абстрактная фабрика \Nnx\Doctrine\EntityManager\OrmEntityAbstractFactory.
 
+Для **быстрого старта**, при использование \Nnx\Doctrine\EntityManager\OrmEntityAbstractFactory необходимо что бы:
+
+- **Модули должны придерживаться одинаковой структуры расположения сущностей**
+- **В описание используемых namespace для Doctrine\ORM\Mapping\Driver\DriverChain, должен соблюдаться приоритет**
+
 Расмотрим проект с следующей структурой:
 
 ```text
@@ -35,8 +40,10 @@ project
 Алогритм определения имени класса сущности по интерфейсу следующий:
 
 - Разбить интерфейс сущности на префикс и "путь". 
+
 -- Разбиение производится по разделителю - по умолчанию это Entity (\Nnx\Service\Core\Entity\CoreServiceInterface -> ['\Nnx\Service\Core\Entity\', 'MyEntity\CoreServiceInterface']
 -- Разделить может быть задан через настройки модуля (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
+
 - Применить к получившемуся пути паттерн (@see \Nnx\Doctrine\Options\ModuleOptions::$entityBodyNamePattern). MyEntity\CoreServiceInterface -> MyEntity\CoreService
 - Пост обработка "пути" к сущности. Можно через настройки модуля указать:
 -- Префикс прибавляемый к имени сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entityNamePrefix)
@@ -55,10 +62,6 @@ project
 -- В случае если существует класс с именем полученным в результате конкатенации префикса для текущего namespace и "пути" к классу сущности, прекращаем поиск
 - Проверяем что найденный класс имплементирует интерфейс для которого происходил поиск.
 
-Для **быстрого старта**, при использование \Nnx\Doctrine\EntityManager\OrmEntityAbstractFactory необходимо что бы:
-
-- **Модули должны придерживаться одинаковой структуры расположения сущностей**
-- **В описание используемых namespace для Doctrine\ORM\Mapping\Driver\DriverChain, должен соблюдаться приоритет**
 
 
 ## Кеширование карты сущностей
