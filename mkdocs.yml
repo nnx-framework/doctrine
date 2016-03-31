@@ -6,6 +6,8 @@ pages:
       - 'Описание EntityManager': 'entity-manager.md'
       - 'Автоопределение класса сущности по его интерфейсу': 'auto-resolve-entity-class-name.md'
     - 'Определение Discriminator Maps на уровне сущностей-потомков': 'defining-discriminator-maps-at-child-level.md'
+    - 'Гидраторы':
+      - 'Абстрактная фабрика для создания \DoctrineModule\Stdlib\Hydrator\DoctrineObject': 'doctrine-object-hydrator.md'
 site_name: module-options
 site_description: 'Набор готовых решений для работы с Doctrine2 на проектах zf2'
 repo_url: 'https://github.com/nnx-framework/doctrine'
