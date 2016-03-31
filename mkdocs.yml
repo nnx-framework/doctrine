@@ -3,7 +3,7 @@ pages:
     - index.md
     - 'Object Manager': 'object-manager.md'
     - 'Entity Manager':
-      - 'Описание EntityManager'a': 'entity-manager.md'
+      - 'Описание EntityManager': 'entity-manager.md'
       - 'Автоопределение класса сущности по его интерфейсу': 'auto-resolve-entity-class-name.md'
 
 site_name: module-options
