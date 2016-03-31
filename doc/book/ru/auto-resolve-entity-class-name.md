@@ -41,24 +41,24 @@ project
 Алогритм определения имени класса сущности по интерфейсу следующий:
 
 - Разбить интерфейс сущности на префикс и "путь". 
--- Разбиение производится по разделителю - по умолчанию это Entity (\Nnx\Service\Core\Entity\CoreServiceInterface -> ['\Nnx\Service\Core\Entity\', 'MyEntity\CoreServiceInterface']
--- Разделить может быть задан через настройки модуля (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
+    - Разбиение производится по разделителю - по умолчанию это Entity (\Nnx\Service\Core\Entity\CoreServiceInterface -> ['\Nnx\Service\Core\Entity\', 'MyEntity\CoreServiceInterface']
+    - Разделить может быть задан через настройки модуля (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
 - Применить к получившемуся пути паттерн (@see \Nnx\Doctrine\Options\ModuleOptions::$entityBodyNamePattern). MyEntity\CoreServiceInterface -> MyEntity\CoreService
 - Пост обработка "пути" к сущности. Можно через настройки модуля указать:
--- Префикс прибавляемый к имени сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entityNamePrefix)
--- Постфикс прибавляемый к имени сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entityNamePostfix)
+    - Префикс прибавляемый к имени сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entityNamePrefix)
+    - Постфикс прибавляемый к имени сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entityNamePostfix)
 - По имени интерфейся определить имя ObjectManager'a доктрины -> $objectManagerName
 - Получить список namespace сущностей используемых в данном ObjectManager'е
--- Считается что в качестве ObjectManager'a выступает \Doctrine\ORM\EntityManager
--- Интеграция приложения с Doctrine2 осуществляется с помощью doctrine/doctrine-orm-module
--- Получаем имя конфигурации из конфига приложения $configuration = $serviceLocator->get('Config')['doctrine']['entitymanager'][$objectManagerName]['configuration'];
--- По имени $configuration получаем имя используемого драйвера $driver = $serviceLocator->get('Config')['doctrine']['configuration'][$configuration]['driver'];
--- По имени драйвера(предполагается что это Doctrine\ORM\Mapping\Driver\DriverChain) получаем список $namespaces =  $serviceLocator->get('Config')['doctrine']['driver'][$driver]['drivers'];
+    - Считается что в качестве ObjectManager'a выступает \Doctrine\ORM\EntityManager
+    - Интеграция приложения с Doctrine2 осуществляется с помощью doctrine/doctrine-orm-module
+    - Получаем имя конфигурации из конфига приложения $configuration = $serviceLocator->get('Config')['doctrine']['entitymanager'][$objectManagerName]['configuration'];
+    - По имени $configuration получаем имя используемого драйвера $driver = $serviceLocator->get('Config')['doctrine']['configuration'][$configuration]['driver'];
+    - По имени драйвера(предполагается что это Doctrine\ORM\Mapping\Driver\DriverChain) получаем список $namespaces =  $serviceLocator->get('Config')['doctrine']['driver'][$driver]['drivers'];
 - Считаем что список $namespaces, определяет приоритет при поиске класса реализующего интерфейс сущности
 - Пробегаемся по списку $namespaces и определяем класс сущности
--- Для конкретного namespace, определяем его префикс (префикс это первый элемент массива полученного в результате разибения namespace по разделителю @see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
--- К префиксу подставляется "путь" к сущности полученный в результате пост обработки
--- В случае если существует класс с именем полученным в результате конкатенации префикса для текущего namespace и "пути" к классу сущности, прекращаем поиск
+    - Для конкретного namespace, определяем его префикс (префикс это первый элемент массива полученного в результате разибения namespace по разделителю @see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
+    - К префиксу подставляется "путь" к сущности полученный в результате пост обработки
+    - В случае если существует класс с именем полученным в результате конкатенации префикса для текущего namespace и "пути" к классу сущности, прекращаем поиск
 - Проверяем что найденный класс имплементирует интерфейс для которого происходил поиск.
 
 
