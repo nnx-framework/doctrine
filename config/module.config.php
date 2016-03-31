@@ -34,7 +34,7 @@ $config = [
         'entityNamePostfix' => '',
 
         /**
-         * Имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache
+         * Имя сервиса, позволяющего получить объект кеша из модуля doctrine/cache, для сохранения карты сущностей
          *
          * (@see https://github.com/doctrine/DoctrineModule)
          * (@see vendor/doctrine/doctrine-module/config/module.config.php)

@@ -19,6 +19,10 @@ Develop:
 
 Набор решений для работы с Doctrine2 на проектах ZF2
 
+# API
+- [Module Api](API.md)
+
+# Документация
 - [Online documentation](http://nnx-doctrine.readthedocs.org/ru/latest/)
 - [Documentation source files](doc/book/ru/)
 
