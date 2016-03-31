@@ -121,6 +121,17 @@ class TestPaths
     }
 
     /**
+     * Путь до директории в которой расположены модули приложения, используемого для тестирования автоматического получения
+     * имени(или создания) ObjectManager'a
+     *
+     * @return string
+     */
+    public static function getPathToObjectManagerAutoDetectorAppModuleDir()
+    {
+        return  __DIR__ . '/../_files/ObjectManagerAutoDetector/module/';
+    }
+
+    /**
      * Путь до конфига приложения, используемого для тестирования генерации и сохранения карту сущностей
      *
      * @return string
@@ -151,5 +162,17 @@ class TestPaths
     public static function getPathToDiscriminatorEntryAppConfig()
     {
         return  __DIR__ . '/../_files/DiscriminatorEntry/application.config.php';
+    }
+
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования автоматического получения
+     * имени(или создания) ObjectManager'a
+     *
+     * @return string
+     */
+    public static function getPathToObjectManagerAutoDetectorAppConfig()
+    {
+        return  __DIR__ . '/../_files/ObjectManagerAutoDetector/application.config.php';
     }
 }

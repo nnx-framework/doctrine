@@ -9,7 +9,6 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
 
-
 /**
  * Class ObjectManagerAutoDetectorFactory
  *
@@ -30,6 +29,9 @@ class ObjectManagerAutoDetectorFactory implements FactoryInterface
         /** @var ModuleOptionsPluginManagerInterface $moduleOptionsManager */
         $moduleOptionsManager = $serviceLocator->get(ModuleOptionsPluginManagerInterface::class);
 
-        return new ObjectManagerAutoDetector($moduleOptionsManager);
+        /** @var DoctrineObjectManagerInterface $doctrineObjectManager */
+        $doctrineObjectManager = $serviceLocator->get(DoctrineObjectManagerInterface::class);
+
+        return new ObjectManagerAutoDetector($moduleOptionsManager, $doctrineObjectManager);
     }
 }

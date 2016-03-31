@@ -6,6 +6,8 @@
 namespace Nnx\Doctrine\ObjectManager;
 
 use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
+use Interop\Container\ContainerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class ObjectManagerAutoDetector
@@ -29,13 +31,24 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
     protected $classNameToObjectManagerName = [];
 
     /**
+     * Плагин менеджер для получения ObjectManager'ов Doctrine2
+     *
+     * @var ContainerInterface
+     */
+    protected $doctrineObjectManager;
+
+    /**
      * ObjectManagerAutoDetector constructor.
      *
      * @param ModuleOptionsPluginManagerInterface $moduleOptionsManager
+     * @param ContainerInterface      $doctrineObjectManager
      */
-    public function __construct(ModuleOptionsPluginManagerInterface $moduleOptionsManager)
-    {
+    public function __construct(
+        ModuleOptionsPluginManagerInterface $moduleOptionsManager,
+        ContainerInterface $doctrineObjectManager
+    ) {
         $this->setModuleOptionsManager($moduleOptionsManager);
+        $this->setDoctrineObjectManager($doctrineObjectManager);
     }
 
     /**
@@ -97,6 +110,46 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
     }
 
 
+    /**
+     * Проверяет есть ли возможность по имени класса модуля, получить objectManager'a который используется в данном модуле
+     *
+     * @param $className
+     *
+     * @return boolean
+     *
+     * @throws Exception\ErrorBuildObjectManagerNameException
+     */
+    public function hasObjectManagerByClassName($className)
+    {
+        if ($this->hasObjectManagerNameByClassName($className)) {
+            $objectManagerName = $this->getObjectManagerNameByClassName($className);
+            return $this->getDoctrineObjectManager()->has($objectManagerName);
+        }
+        return false;
+    }
+
+    /**
+     * По имени класса модуля, получает objectManager'a который используется в данном модуле
+     *
+     * @param $className
+     *
+     * @return ObjectManager
+     *
+     * @throws Exception\ErrorBuildObjectManagerNameException
+     * @throws \Interop\Container\Exception\NotFoundException
+     * @throws \Interop\Container\Exception\ContainerException
+     * @throws Exception\ErrorBuildObjectManagerException
+     */
+    public function getObjectManagerByClassName($className)
+    {
+        if (!$this->hasObjectManagerByClassName($className)) {
+            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $className);
+            throw new Exception\ErrorBuildObjectManagerException($errMsg);
+        }
+        $objectManagerName = $this->getObjectManagerNameByClassName($className);
+
+        return $this->getDoctrineObjectManager()->get($objectManagerName);
+    }
 
 
 
@@ -120,6 +173,30 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
     public function setModuleOptionsManager(ModuleOptionsPluginManagerInterface $moduleOptionsManager)
     {
         $this->moduleOptionsManager = $moduleOptionsManager;
+
+        return $this;
+    }
+
+    /**
+     * Возрвщает плагин менеджер для получения ObjectManager'ов Doctrine2
+     *
+     * @return ContainerInterface
+     */
+    public function getDoctrineObjectManager()
+    {
+        return $this->doctrineObjectManager;
+    }
+
+    /**
+     * Устанавливает плагин менеджер для получения ObjectManager'ов Doctrine2
+     *
+     * @param ContainerInterface $doctrineObjectManager
+     *
+     * @return $this
+     */
+    public function setDoctrineObjectManager(ContainerInterface $doctrineObjectManager)
+    {
+        $this->doctrineObjectManager = $doctrineObjectManager;
 
         return $this;
     }

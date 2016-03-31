@@ -5,6 +5,8 @@
  */
 namespace Nnx\Doctrine\ObjectManager;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 /**
  * Interface ObjectManagerAutoDetectorInterface
  *
@@ -29,4 +31,23 @@ interface ObjectManagerAutoDetectorInterface
      * @return boolean
      */
     public function hasObjectManagerNameByClassName($className);
+
+
+    /**
+     * Проверяет есть ли возможность по имени класса модуля, получить objectManager'a который используется в данном модуле
+     *
+     * @param $className
+     *
+     * @return boolean
+     */
+    public function hasObjectManagerByClassName($className);
+
+    /**
+     * По имени класса модуля, получает objectManager'a который используется в данном модуле
+     *
+     * @param $className
+     *
+     * @return ObjectManager
+     */
+    public function getObjectManagerByClassName($className);
 }

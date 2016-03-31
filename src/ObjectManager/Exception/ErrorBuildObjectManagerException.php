@@ -8,10 +8,10 @@ namespace Nnx\Doctrine\ObjectManager\Exception;
 use Interop\Container\Exception\ContainerException;
 
 /**
- * Class ErrorBuildObjectManagerNameException
+ * Class ErrorBuildObjectManagerException
  *
  * @package Nnx\Doctrine\ObjectManager\Exception
  */
-class ErrorBuildObjectManagerNameException extends RuntimeException implements ContainerException
+class ErrorBuildObjectManagerException extends RuntimeException implements ContainerException
 {
 }
