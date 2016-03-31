@@ -7,7 +7,6 @@ Master:
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nnx-framework/doctrine/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nnx-framework/doctrine/?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/nnx-doctrine/badge/?version=master)](http://nnx-doctrine.readthedocs.org/ru/latest/?badge=master)
 
-
 Develop:
 
 [![Build Status](https://travis-ci.org/nnx-framework/doctrine.svg?branch=dev)](https://travis-ci.org/nnx-framework/doctrine)

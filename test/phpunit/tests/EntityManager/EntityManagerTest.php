@@ -22,6 +22,9 @@ class EntityManagerTest extends AbstractHttpControllerTestCase
      * Проврека получения ObjectManager
      *
      * @return void
+     *
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function testCreateEntityManager()
     {
@@ -40,6 +43,11 @@ class EntityManagerTest extends AbstractHttpControllerTestCase
      * Проврека работы абстрактной фабрики, которая создает ObjectManager для DoctrineOrm
      *
      * @return void
+     *
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws \Zend\ServiceManager\Exception\RuntimeException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotCreatedException
      */
     public function testOrmAbstractFactory()
     {

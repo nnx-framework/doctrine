@@ -3,4 +3,7 @@
 Набор сервисов для работы с Doctrine2 в приложения на ZF2.
 
 ## Оглавление
-* [Object Manager](object-manager.md)
+- [Object Manager](object-manager.md)
+- Entity Manager
+-- [Описание EntityManager'a](entity-manager.md)
+-- [Автоопределение класса сущности по его интерфейсу](auto-resolve-entity-class-name.md)

@@ -17,7 +17,7 @@ interface EntityManagerInterface extends ContainerInterface
 {
 
     /**
-     * Получение класс сущности, по интерфейсу
+     * Получение класса сущности, по интерфейсу
      *
      * @param $interfaceName
      *

@@ -2,6 +2,10 @@ docs_dir: doc/book/ru
 pages:
     - index.md
     - 'Object Manager': 'object-manager.md'
+    - 'Entity Manager':
+      - 'Описание EntityManager'a': 'entity-manager.md'
+      - 'Автоопределение класса сущности по его интерфейсу': 'auto-resolve-entity-class-name.md'
+
 site_name: module-options
 site_description: 'Набор готовых решений для работы с Doctrine2 на проектах zf2'
 repo_url: 'https://github.com/nnx-framework/doctrine'
