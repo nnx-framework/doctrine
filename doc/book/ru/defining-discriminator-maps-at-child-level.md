@@ -21,9 +21,46 @@ return [
 
 В классе потомке добавить анотацию Nnx\Doctrine\Annotation\DiscriminatorEntry:
 
-```php
+Корневая сущность:
 
-<?php
+```
+namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class RootEntity
+ *
+ * @ORM\Entity()
+ * @ORM\DiscriminatorMap()
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorMap(value={ "rootEntity" = "RootEntity" })
+ */
+class RootEntity
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Id()
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}
+```
+
+Сущность потомок:
+
+```php
 namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity\Overload;
 
 use Doctrine\ORM\Mapping as ORM;
