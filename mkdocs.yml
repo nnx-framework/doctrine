@@ -1,6 +1,7 @@
 docs_dir: doc/book/ru
 pages:
     - index.md
+    - 'Object Manager': 'object-manager.md'
 site_name: module-options
 site_description: 'Набор готовых решений для работы с Doctrine2 на проектах zf2'
 repo_url: 'https://github.com/nnx-framework/doctrine'

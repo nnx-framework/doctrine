@@ -16,11 +16,12 @@ Develop:
 [![Documentation Status](https://readthedocs.org/projects/nnx-doctrine/badge/?version=dev)](http://nnx-doctrine.readthedocs.org/ru/latest/?badge=dev)
 
 
-
-
 ## Описание модуля
 
 Набор решений для работы с Doctrine2 на проектах ZF2
+
+- [Online documentation](http://nnx-doctrine.readthedocs.org/ru/latest/)
+- [Documentation source files](doc/book/ru/)
 
 
 

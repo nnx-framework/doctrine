@@ -19,6 +19,7 @@ class ModuleTest extends AbstractHttpControllerTestCase
     /**
      *
      * @return void
+     * @throws \Zend\Stdlib\Exception\LogicException
      */
     public function testLoadModule()
     {

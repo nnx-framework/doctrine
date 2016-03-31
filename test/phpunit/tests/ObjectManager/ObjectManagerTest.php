@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  * Class ObjectManagerTest
  *
  * @package Nnx\Doctrine\PhpUnit\Test\ObjectManager
+
  */
 class ObjectManagerTest extends AbstractHttpControllerTestCase
 {
@@ -21,6 +22,8 @@ class ObjectManagerTest extends AbstractHttpControllerTestCase
      * Проврека получения ObjectManager
      *
      * @return void
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function testCreateObjectManager()
     {
@@ -39,6 +42,12 @@ class ObjectManagerTest extends AbstractHttpControllerTestCase
      * Проврека работы абстрактной фабрики, которая создает ObjectManager для DoctrineOrm
      *
      * @return void
+     * 
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     * @throws \Zend\ServiceManager\Exception\RuntimeException
+     * @throws \PHPUnit_Framework_AssertionFailedError
      */
     public function testOrmAbstractFactory()
     {
