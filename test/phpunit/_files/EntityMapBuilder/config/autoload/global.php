@@ -9,8 +9,13 @@ use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 
 return [
     'nnx_doctrine' => [
-        'entityMapDoctrineCache' => 'doctrine.cache.filesystem'
+        'entityMapDoctrineCache' => 'doctrine.cache.filesystem',
+        'flagAutoBuildEntityMapDoctrineCache' => true,
+        'excludeEntityManagerForAutoBuildEntityMap' => [
+            'doctrine.entitymanager.orm_default'
+        ]
     ],
+    
     'doctrine' => [
         'cache' => [
             'filesystem' => [

@@ -43,6 +43,22 @@ $config = [
         'entityMapDoctrineCache' => null,
 
         /**
+         * Флаг определяет, нужно ли автоматически собирать кеш карты сущностей
+         */
+        'flagAutoBuildEntityMapDoctrineCache' => false,
+
+        /**
+         * Флаг позволяет отключить использования кеширования при работе с entityMap
+         */
+        'flagDisableUseEntityMapDoctrineCache' => false,
+
+        /**
+         * Список EntityManager'ов, для которых никогда не нужно собирать кеш entityMap  в автоматическом режими
+         */
+        'excludeEntityManagerForAutoBuildEntityMap' => [],
+
+
+        /**
          * Префикс используемый для генерации ключа кеширования карты сущностей doctrine
          *
          */
@@ -56,7 +72,7 @@ $config = [
          * (@see \DoctrineModule\Service\CacheFactory)
          *
          */
-        'metadataReaderCache' => 'doctrine.cache.array'
+        'metadataReaderCache' => 'doctrine.cache.array',
     ]
 ];
 

@@ -69,11 +69,17 @@ class EntityMapCache implements EntityMapCacheInterface
      */
     public function saveEntityMap($objectManagerName)
     {
+        $moduleOptions =  $this->getModuleOptions();
+        $originalFlag = $this->getModuleOptions()->getFlagDisableUseEntityMapDoctrineCache();
+        $moduleOptions->setFlagDisableUseEntityMapDoctrineCache(true);
+
         $map = $this->getEntityMapBuilder()->buildEntityMapByObjectManagerName($objectManagerName);
 
         $key = $this->getCacheKeyForObjectManagerName($objectManagerName);
+        $resultSaveCache = $this->getCache()->save($key, $map);
+        $moduleOptions->setFlagDisableUseEntityMapDoctrineCache($originalFlag);
 
-        return $this->getCache()->save($key, $map);
+        return $resultSaveCache;
     }
 
     /**

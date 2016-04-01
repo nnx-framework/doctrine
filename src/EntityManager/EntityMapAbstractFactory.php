@@ -21,6 +21,7 @@ use ReflectionClass;
  */
 class EntityMapAbstractFactory implements AbstractFactoryInterface
 {
+
     /**
      * Ключем является имя интерфейса сущности, а значением объект прототип, либо false
      *
@@ -80,9 +81,23 @@ class EntityMapAbstractFactory implements AbstractFactoryInterface
      * @return boolean
      *
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws  Exception\ErrorBuildEntityMapCacheException
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
+        $appServiceLocator = $serviceLocator;
+        if ($serviceLocator instanceof AbstractPluginManager) {
+            $appServiceLocator = $serviceLocator->getServiceLocator();
+        }
+        /** @var ModuleOptionsPluginManagerInterface $moduleOptionsManager */
+        $moduleOptionsManager = $appServiceLocator->get(ModuleOptionsPluginManagerInterface::class);
+        /** @var ModuleOptionsInterface $moduleOptions */
+        $moduleOptions = $moduleOptionsManager->get(ModuleOptionsInterface::class);
+
+        if ($moduleOptions->getFlagDisableUseEntityMapDoctrineCache()) {
+            return false;
+        }
+
         $this->init($serviceLocator);
         if (array_key_exists($requestedName, $this->prototype)) {
             return false !== $this->prototype[$requestedName];
@@ -133,6 +148,7 @@ class EntityMapAbstractFactory implements AbstractFactoryInterface
      *
      * @throws Exception\RuntimeException
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws Exception\ErrorBuildEntityMapCacheException
      */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
@@ -169,6 +185,7 @@ class EntityMapAbstractFactory implements AbstractFactoryInterface
      * @return void
      *
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws Exception\ErrorBuildEntityMapCacheException
      */
     public function init(ServiceLocatorInterface $serviceLocator)
     {
@@ -194,7 +211,21 @@ class EntityMapAbstractFactory implements AbstractFactoryInterface
 
         /** @var EntityMapCacheInterface $entityMapCache */
         $entityMapCache = $appServiceLocator->get(EntityMapCacheInterface::class);
+
+        $excludeEntityManagerForAutoBuildEntityMap = $moduleOptions->getExcludeEntityManagerForAutoBuildEntityMap();
         foreach ($listObjectManagerName as $objectManagerName) {
+            $flagBuildCache = !in_array($objectManagerName, $excludeEntityManagerForAutoBuildEntityMap, true)
+                && $moduleOptions->getFlagAutoBuildEntityMapDoctrineCache()
+                && !$entityMapCache->hasEntityMap($objectManagerName);
+
+            if ($flagBuildCache) {
+                $entityMapCache->saveEntityMap($objectManagerName);
+                if (!$entityMapCache->hasEntityMap($objectManagerName)) {
+                    $errMsg = sprintf('Invalid build entity map for: %s', $objectManagerName);
+                    throw new Exception\ErrorBuildEntityMapCacheException($errMsg);
+                }
+            }
+
             if ($entityMapCache->hasEntityMap($objectManagerName)) {
                 $this->objectManagerToEntityMap[$objectManagerName] = $entityMapCache->loadEntityMap($objectManagerName);
             }

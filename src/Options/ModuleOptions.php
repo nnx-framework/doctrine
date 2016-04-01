@@ -82,6 +82,27 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     protected $metadataReaderCache;
 
     /**
+     * Флаг определяет, нужно ли автоматически собирать кеш карты сущностей
+     *
+     * @var boolean
+     */
+    protected $flagAutoBuildEntityMapDoctrineCache = true;
+
+    /**
+     * Список EntityManager'ов, для которых никогда не нужно собирать кеш entityMap  в автоматическом режими
+     *
+     * @var array
+     */
+    protected $excludeEntityManagerForAutoBuildEntityMap = [];
+
+    /**
+     * Флаг позволяет отключить использования кеширования при работе с entityMap
+     *
+     * @var bool
+     */
+    protected $flagDisableUseEntityMapDoctrineCache = false;
+
+    /**
      * Строка, используемая как разделитель в полном имени класса сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
      *
      * @return string
@@ -248,6 +269,78 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     public function setMetadataReaderCache($metadataReaderCache)
     {
         $this->metadataReaderCache = $metadataReaderCache;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return boolean
+     */
+    public function getFlagAutoBuildEntityMapDoctrineCache()
+    {
+        return $this->flagAutoBuildEntityMapDoctrineCache;
+    }
+
+    /**
+     * Устанавливает флаг определяющий, нужно ли автоматически собирать кеш карты сущностей
+     *
+     * @param bool $flagAutoBuildEntityMapDoctrineCache
+     *
+     * @return $this
+     */
+    public function setFlagAutoBuildEntityMapDoctrineCache($flagAutoBuildEntityMapDoctrineCache)
+    {
+        $this->flagAutoBuildEntityMapDoctrineCache = $flagAutoBuildEntityMapDoctrineCache;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return array
+     */
+    public function getExcludeEntityManagerForAutoBuildEntityMap()
+    {
+        return $this->excludeEntityManagerForAutoBuildEntityMap;
+    }
+
+    /**
+     * Устанавливает список EntityManager'ов, для которых никогда не нужно собирать кеш entityMap  в автоматическом режими
+     *
+     * @param array $excludeEntityManagerForAutoBuildEntityMap
+     *
+     * @return $this
+     */
+    public function setExcludeEntityManagerForAutoBuildEntityMap(array $excludeEntityManagerForAutoBuildEntityMap = [])
+    {
+        $this->excludeEntityManagerForAutoBuildEntityMap = $excludeEntityManagerForAutoBuildEntityMap;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return boolean
+     */
+    public function getFlagDisableUseEntityMapDoctrineCache()
+    {
+        return $this->flagDisableUseEntityMapDoctrineCache;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param boolean $flagDisableUseEntityMapDoctrineCache
+     *
+     * @return $this
+     */
+    public function setFlagDisableUseEntityMapDoctrineCache($flagDisableUseEntityMapDoctrineCache)
+    {
+        $this->flagDisableUseEntityMapDoctrineCache = $flagDisableUseEntityMapDoctrineCache;
 
         return $this;
     }

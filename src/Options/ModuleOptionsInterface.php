@@ -66,4 +66,37 @@ interface ModuleOptionsInterface
      * @return string
      */
     public function getMetadataReaderCache();
+
+    /**
+     * Возвращает флаг определяющий, нужно ли автоматически собирать кеш карты сущностей
+     *
+     * @return boolean
+     */
+    public function getFlagAutoBuildEntityMapDoctrineCache();
+
+
+    /**
+     * Возвращает список EntityManager'ов, для которых никогда не нужно собирать кеш entityMap  в автоматическом режими
+     *
+     * @return array
+     */
+    public function getExcludeEntityManagerForAutoBuildEntityMap();
+
+
+    /**
+     * Возвращает флаг позволяющий отключить использования кеширования при работе с entityMap
+     *
+     * @return boolean
+     */
+    public function getFlagDisableUseEntityMapDoctrineCache();
+
+
+    /**
+     * Устанавливает флаг позволяющий отключить использования кеширования при работе с entityMap
+     *
+     * @param boolean $flagDisableUseEntityMapDoctrineCache
+     *
+     * @return $this
+     */
+    public function setFlagDisableUseEntityMapDoctrineCache($flagDisableUseEntityMapDoctrineCache);
 }

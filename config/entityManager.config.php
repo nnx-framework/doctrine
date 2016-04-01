@@ -18,8 +18,8 @@ return [
 
         ],
         'abstract_factories' => [
+            OrmEntityAbstractFactory::class => OrmEntityAbstractFactory::class,
             EntityMapAbstractFactory::class => EntityMapAbstractFactory::class,
-            OrmEntityAbstractFactory::class => OrmEntityAbstractFactory::class
         ]
     ],
 ];

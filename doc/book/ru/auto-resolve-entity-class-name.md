@@ -94,3 +94,17 @@ php public/index.php entity-map build --objectManager=doctrine.entitymanager.orm
 ```bash
 php public/index.php entity-map clear  --objectManager=doctrine.entitymanager.orm_default
 ```
+
+## Автоматическое кеширование карты сущностей
+
+Начиная с верси 0.1.14 добавлена возможность автоматически строить кеш карты сущностей, не запуская ни каких, консольных комманд
+
+За логику работы с автоматическим кешированием отвечают следующие настройки модуля:
+
+Имя параметра                            |Описание
+-----------------------------------------|----------------
+flagAutoBuildEntityMapDoctrineCache      |Флаг определяет, нужно ли автоматически собирать кеш карты сущностей
+flagDisableUseEntityMapDoctrineCache     |Флаг блокирует использования системы кеширования (удобно устанавливать разработчикам, во время отладки)
+excludeEntityManagerForAutoBuildEntityMap|Список имен ObjectManager'ов, для которых в автоматическом режими (flagAutoBuildEntityMapDoctrineCache=true), никогда не строится карта сущностей
+
+По **умолчани автоматическая сборка кеша для карты сущностей выключена**
