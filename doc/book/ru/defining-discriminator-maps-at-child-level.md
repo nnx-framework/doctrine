@@ -19,9 +19,11 @@ return [
 
 ```
 
-В классе потомке добавить анотацию Nnx\Doctrine\Annotation\DiscriminatorEntry:
 
-Корневая сущность:
+В корневой сущности **обязательно нужно указать DiscriminatorMap, хотя бы с одним значением**. Это связано с реализацией
+функционала по обработке DiscriminatorMap в Doctrine2. В качестве значения можно указать значение столбаца дискриминатора,
+для класса корневой сущности. 
+
 
 ```php
 namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity;
@@ -58,7 +60,8 @@ class RootEntity
 }
 ```
 
-Сущность потомок:
+В классе потомке добавить анотацию Nnx\Doctrine\Annotation\DiscriminatorEntry:
+
 
 ```php
 namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Entity\Overload;
