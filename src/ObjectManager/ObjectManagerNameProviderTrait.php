@@ -17,7 +17,7 @@ trait ObjectManagerNameProviderTrait
      *
      * @var string
      */
-    protected $objectManagerName;
+    protected $objectManagerName = 'doctrine.entitymanager.orm_default';
 
     /**
      * Возвращает имя используемого ObjectManager'a
