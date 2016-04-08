@@ -3,24 +3,27 @@
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Nnx\ZF2TestToolkit\Listener\InitTestAppListener;
 use Nnx\ZF2TestToolkit\Listener\StopDoctrineLoadCliPostEventListener;
+use Nnx\Doctrine\Module;
+use Nnx\ModuleOptions\Module as ModuleOptions;
+use Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve;
 
 return [
     'modules'                 => [
         'DoctrineModule',
         'DoctrineORMModule',
-        'Nnx\\ModuleOptions',
-        'Nnx\\Doctrine',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule1',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule2',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule3',
+        ModuleOptions::MODULE_NAME,
+        Module::MODULE_NAME,
+        EntityAutoResolve\TestModule1\Module::MODULE_NAME,
+        EntityAutoResolve\TestModule2\Module::MODULE_NAME,
+        EntityAutoResolve\TestModule3\Module::MODULE_NAME,
 
     ],
     'module_listener_options' => [
         'module_paths'      => [
-            'Nnx\\Doctrine' => TestPaths::getPathToModule(),
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule1' => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule1',
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule2' => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule2',
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule3' => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule3',
+            Module::MODULE_NAME => TestPaths::getPathToModule(),
+            EntityAutoResolve\TestModule1\Module::MODULE_NAME => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule1',
+            EntityAutoResolve\TestModule2\Module::MODULE_NAME => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule2',
+            EntityAutoResolve\TestModule3\Module::MODULE_NAME => TestPaths::getPathToEntityAutoResolveAppModuleDir() . 'TestModule3',
 
         ],
         'config_glob_paths' => [

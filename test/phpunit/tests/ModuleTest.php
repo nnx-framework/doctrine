@@ -7,7 +7,7 @@ namespace Nnx\Doctrine\PhpUnit\Test;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
-
+use Nnx\Doctrine\Module;
 
 /**
  * Class ModuleTest
@@ -28,6 +28,6 @@ class ModuleTest extends AbstractHttpControllerTestCase
             include TestPaths::getPathToDefaultAppConfig()
         );
 
-        $this->assertModulesLoaded(['Nnx\\Doctrine']);
+        $this->assertModulesLoaded([Module::MODULE_NAME]);
     }
 }

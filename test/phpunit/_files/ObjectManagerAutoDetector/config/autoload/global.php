@@ -6,6 +6,8 @@
 namespace Nnx\Doctrine\PhpUnit\TestData\ObjectManagerAutoDetector;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\Doctrine\PhpUnit\TestData\ObjectManagerAutoDetector as TestApp;
+
 
 return [
     'doctrine' => [
@@ -43,9 +45,9 @@ return [
             'test' => [
                 'class'   => 'Doctrine\ORM\Mapping\Driver\DriverChain',
                 'drivers' => [
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\ObjectManagerAutoDetector\\TestModule3\\Entity' => 'testModule3',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\ObjectManagerAutoDetector\\TestModule1\\Entity' => 'testModule1',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\ObjectManagerAutoDetector\\TestModule2\\Entity' => 'testModule2',
+                    TestApp\TestModule3\Module::MODULE_NAME . '\\Entity' => 'testModule3',
+                    TestApp\TestModule1\Module::MODULE_NAME . '\\Entity' => 'testModule1',
+                    TestApp\TestModule2\Module::MODULE_NAME . '\\Entity' => 'testModule2',
                 ]
             ]
         ]

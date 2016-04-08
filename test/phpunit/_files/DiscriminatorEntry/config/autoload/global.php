@@ -6,7 +6,8 @@
 namespace Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
-use \Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListener;
+use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListener;
+use Nnx\Doctrine\PhpUnit\TestData\DiscriminatorEntry\TestModule1\Module as TestModule1;
 
 return [
     'doctrine' => [
@@ -51,7 +52,7 @@ return [
             'test' => [
                 'class'   => 'Doctrine\ORM\Mapping\Driver\DriverChain',
                 'drivers' => [
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\DiscriminatorEntry\\TestModule1\\Entity' => 'testModule1',
+                    TestModule1::MODULE_NAME . '\\Entity' => 'testModule1',
                 ]
             ]
         ]

@@ -5,14 +5,16 @@
  */
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\Doctrine\Module;
+use Nnx\ModuleOptions\Module as ModuleOptions;
 
 return [
     'modules'                 => [
-        'Nnx\\Doctrine'
+        Module::MODULE_NAME
     ],
     'module_listener_options' => [
         'module_paths'      => [
-            'Nnx\\ModuleOptions' => TestPaths::getPathToModule(),
+            ModuleOptions::MODULE_NAME => TestPaths::getPathToModule(),
         ],
         'config_glob_paths' => [
             __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',

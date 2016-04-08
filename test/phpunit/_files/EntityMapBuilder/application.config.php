@@ -3,24 +3,28 @@
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Nnx\ZF2TestToolkit\Listener\InitTestAppListener;
 use Nnx\ZF2TestToolkit\Listener\StopDoctrineLoadCliPostEventListener;
+use Nnx\ModuleOptions\Module as ModuleOptions;
+use Nnx\Doctrine\Module;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder;
+
 
 return [
     'modules'                 => [
         'DoctrineModule',
         'DoctrineORMModule',
-        'Nnx\\ModuleOptions',
-        'Nnx\\Doctrine',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule1',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule2',
-        'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule3',
+        ModuleOptions::MODULE_NAME,
+        Module::MODULE_NAME,
+        EntityMapBuilder\TestModule1\Module::MODULE_NAME,
+        EntityMapBuilder\TestModule2\Module::MODULE_NAME,
+        EntityMapBuilder\TestModule3\Module::MODULE_NAME,
 
     ],
     'module_listener_options' => [
         'module_paths'      => [
-            'Nnx\\Doctrine' => TestPaths::getPathToModule(),
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule1' => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule1',
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule2' => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule2',
-            'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule3' => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule3',
+            Module::MODULE_NAME => TestPaths::getPathToModule(),
+            EntityMapBuilder\TestModule1\Module::MODULE_NAME => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule1',
+            EntityMapBuilder\TestModule2\Module::MODULE_NAME => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule2',
+            EntityMapBuilder\TestModule3\Module::MODULE_NAME => TestPaths::getPathToEntityMapBuilderAppModuleDir() . 'TestModule3',
 
         ],
         'config_glob_paths' => [

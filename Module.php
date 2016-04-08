@@ -46,6 +46,13 @@ class Module implements
     const CONFIG_KEY = 'nnx_doctrine';
 
     /**
+     * Имя модуля
+     *
+     * @var string
+     */
+    const MODULE_NAME = __NAMESPACE__;
+
+    /**
      * @param ModuleManagerInterface $manager
      *
      * @throws Exception\InvalidArgumentException

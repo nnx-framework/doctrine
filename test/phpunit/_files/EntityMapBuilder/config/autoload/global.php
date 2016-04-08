@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\Doctrine\PhpUnit\TestData\EntityMapBuilder;
 
 return [
     'nnx_doctrine' => [
@@ -15,7 +16,7 @@ return [
             'doctrine.entitymanager.orm_default'
         ]
     ],
-    
+
     'doctrine' => [
         'cache' => [
             'filesystem' => [
@@ -56,9 +57,9 @@ return [
             'test' => [
                 'class'   => 'Doctrine\ORM\Mapping\Driver\DriverChain',
                 'drivers' => [
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule3\\Entity' => 'testModule3',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule1\\Entity' => 'testModule1',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityMapBuilder\\TestModule2\\Entity' => 'testModule2',
+                    EntityMapBuilder\TestModule3\Module::MODULE_NAME . '\\Entity' => 'testModule3',
+                    EntityMapBuilder\TestModule1\Module::MODULE_NAME . '\\Entity' => 'testModule1',
+                    EntityMapBuilder\TestModule2\Module::MODULE_NAME . '\\Entity' => 'testModule2',
                 ]
             ]
         ]

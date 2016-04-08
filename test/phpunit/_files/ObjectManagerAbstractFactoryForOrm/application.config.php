@@ -6,16 +6,17 @@
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
 use Nnx\ZF2TestToolkit\Listener\InitTestAppListener;
+use Nnx\Doctrine\Module;
 
 return [
     'modules'                 => [
         'DoctrineModule',
         'DoctrineORMModule',
-        'Nnx\\Doctrine'
+        Module::MODULE_NAME
     ],
     'module_listener_options' => [
         'module_paths'      => [
-            'Nnx\\ModuleOptions' => TestPaths::getPathToModule(),
+            Module::MODULE_NAME => TestPaths::getPathToModule(),
         ],
         'config_glob_paths' => [
             __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',

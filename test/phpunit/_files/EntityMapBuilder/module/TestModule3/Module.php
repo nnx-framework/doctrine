@@ -25,6 +25,13 @@ class Module implements
     const CONFIG_KEY = 'test_module_3';
 
     /**
+     * Имя модуля
+     *
+     * @var string
+     */
+    const MODULE_NAME = __NAMESPACE__;
+
+    /**
      * @return array
      */
     public function getAutoloaderConfig()

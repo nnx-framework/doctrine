@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve;
 
 return [
     'doctrine' => [
@@ -43,9 +44,9 @@ return [
             'test' => [
                 'class'   => 'Doctrine\ORM\Mapping\Driver\DriverChain',
                 'drivers' => [
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule3\\Entity' => 'testModule3',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule1\\Entity' => 'testModule1',
-                    'Nnx\\Doctrine\\PhpUnit\\TestData\\EntityAutoResolve\\TestModule2\\Entity' => 'testModule2',
+                    EntityAutoResolve\TestModule3\Module::MODULE_NAME . '\\Entity' => 'testModule3',
+                    EntityAutoResolve\TestModule1\Module::MODULE_NAME . '\\Entity' => 'testModule1',
+                    EntityAutoResolve\TestModule2\Module::MODULE_NAME . '\\Entity' => 'testModule2',
                 ]
             ]
         ]
