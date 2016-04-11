@@ -23,7 +23,8 @@ use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorInterface;
 use Nnx\Doctrine\Hydrator\DoctrineObjectHydratorLocatorFactory;
 use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListener;
 use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListenerFactory;
-
+use Nnx\Doctrine\Service\ObjectManagerServiceInterface;
+use Nnx\Doctrine\Service\ObjectManagerServiceFactory;
 
 return [
     'service_manager' => [
@@ -38,7 +39,8 @@ return [
             EntityMapBuilderInterface::class              => EntityMapBuilderFactory::class,
             EntityMapCacheInterface::class                => EntityMapCacheFactory::class,
             DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class,
-            DiscriminatorEntryListener::class             => DiscriminatorEntryListenerFactory::class
+            DiscriminatorEntryListener::class             => DiscriminatorEntryListenerFactory::class,
+            ObjectManagerServiceInterface::class          => ObjectManagerServiceFactory::class
         ],
         'abstract_factories' => [
 
