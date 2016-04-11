@@ -33,9 +33,9 @@ interface ObjectManagerServiceInterface
     public function saveEntityObject($entityObject);
 
     /**
-     * Создает и сохраняет новую сущность
+     * Создает новую сущность
      *
      * @param string $entityName
      */
-    public function createAndSaveEntityObject($entityName);
+    public function createEntityObject($entityName);
 }
