@@ -16,7 +16,7 @@ use Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve as TestApp;
  *
  * @package Nnx\Doctrine\PhpUnit\Test\Service
  */
-class ObjectManagerService extends AbstractHttpControllerTestCase
+class ObjectManagerServiceTest extends AbstractHttpControllerTestCase
 {
 
     /**
@@ -76,7 +76,7 @@ class ObjectManagerService extends AbstractHttpControllerTestCase
      * @throws \Zend\Stdlib\Exception\LogicException
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
-    public function saveEntityObject()
+    public function testSaveEntityObject()
     {
         /** @noinspection PhpIncludeInspection */
         $this->setApplicationConfig(
