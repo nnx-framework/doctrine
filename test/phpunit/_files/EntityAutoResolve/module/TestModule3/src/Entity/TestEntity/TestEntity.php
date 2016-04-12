@@ -14,7 +14,9 @@ use Zend\Stdlib\InitializableInterface;
  *
  * @package Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule3\Entity\TestEntity
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="\Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule3\Repository\CustomRepository")
+ * @ORM\Table(name="EntityAutoResolve_TestModule3_TestEntity")
+ *
  */
 class TestEntity implements TestEntityInterface, RootTestEntityInterface, InitializableInterface
 {
@@ -38,5 +40,14 @@ class TestEntity implements TestEntityInterface, RootTestEntityInterface, Initia
 
     }
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
 
 }

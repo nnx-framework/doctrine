@@ -88,9 +88,9 @@ class ObjectManagerService implements ObjectManagerServiceInterface
      * @throws \Nnx\Doctrine\Service\Exception\InvalidEntityObjectException
      * @throws \Interop\Container\Exception\NotFoundException
      */
-    public function createEntityObject($entityName)
+    public function createEntityObject($entityName, array $options = [])
     {
-        return $this->getEntityManager()->get($entityName);
+        return $this->getEntityManager()->get($entityName, $options);
     }
 
     /**

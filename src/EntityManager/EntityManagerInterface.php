@@ -12,6 +12,8 @@ use Interop\Container\ContainerInterface;
  * Interface EntityManagerInterface
  *
  * @package Nnx\Doctrine\EntityManager
+ *
+ * @method mixed get($id, array $options = [])
  */
 interface EntityManagerInterface extends ContainerInterface
 {

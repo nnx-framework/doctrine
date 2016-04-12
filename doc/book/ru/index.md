@@ -10,5 +10,5 @@
 - (Определение Discriminator Maps на уровне сущностей-потомков)[defining-discriminator-maps-at-child-level.md]
 - Гидраторы
     - [DoctrineObjectHydrator](doctrine-object-hydrator.md)
-    
-
+- Сервисы
+    - [ObjectManagerServiceInterface](object-manager-service.md)

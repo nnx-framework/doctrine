@@ -12,5 +12,8 @@ namespace Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule2\Entity\Tes
  */
 interface TestEntityInterface
 {
-
+    /**
+     * @return integer
+     */
+    public function getId();
 }

@@ -7,6 +7,7 @@ namespace Nnx\Doctrine\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 
+
 /**
  * Interface ObjectManagerServiceInterface
  *
@@ -36,6 +37,9 @@ interface ObjectManagerServiceInterface
      * Создает новую сущность
      *
      * @param string $entityName
+     * @param array  $options
+     *
+     * @return mixed
      */
-    public function createEntityObject($entityName);
+    public function createEntityObject($entityName, array $options = []);
 }

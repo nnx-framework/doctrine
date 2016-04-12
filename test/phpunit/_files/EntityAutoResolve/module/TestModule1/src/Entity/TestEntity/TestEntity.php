@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Nnx\Doctrine\PhpUnit\TestData\EntityAutoResolve\TestModule1\Entity\TestEntity
  *
  * @ORM\Entity()
+ * @ORM\Table(name="EntityAutoResolve_TestModule1_TestEntity")
  */
 class TestEntity implements TestEntityInterface
 {
@@ -22,4 +23,14 @@ class TestEntity implements TestEntityInterface
      * @ORM\Column()
      */
     protected $id;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    
 }
