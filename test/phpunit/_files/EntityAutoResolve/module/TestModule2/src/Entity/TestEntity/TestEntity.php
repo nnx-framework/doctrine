@@ -21,7 +21,8 @@ class TestEntity implements TestEntityInterface
     /**
      * @var integer
      * @ORM\Id()
-     * @ORM\Column()
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
