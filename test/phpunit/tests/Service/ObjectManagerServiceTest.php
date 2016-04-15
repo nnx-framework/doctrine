@@ -47,13 +47,35 @@ class ObjectManagerServiceTest extends AbstractHttpControllerTestCase
 
 
     /**
-     * Проврека получения ObjectManager
+     * Проврека получения репозитория по интерфейсу сущности
      *
      * @return void
      * @throws \Zend\Stdlib\Exception\LogicException
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
-    public function testGetRepository()
+    public function testGetRepositoryByInterface()
+    {
+        /** @noinspection PhpIncludeInspection */
+        $this->setApplicationConfig(
+            include TestPaths::getPathToEntityAutoResolveAppConfig()
+        );
+
+        /** @var ObjectManagerServiceInterface $objectManagerService */
+        $objectManagerService = $this->getApplicationServiceLocator()->get(ObjectManagerServiceInterface::class);
+
+        $testEntityRep = $objectManagerService->getRepository(TestApp\TestModule1\Entity\TestEntity\TestEntityInterface::class);
+
+        static::assertInstanceOf(TestApp\TestModule3\Repository\CustomRepository::class, $testEntityRep);
+    }
+
+    /**
+     * Проврека получения репозитория по интерфейсу сущности
+     *
+     * @return void
+     * @throws \Zend\Stdlib\Exception\LogicException
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     */
+    public function testGetRepositoryByClassName()
     {
         /** @noinspection PhpIncludeInspection */
         $this->setApplicationConfig(
