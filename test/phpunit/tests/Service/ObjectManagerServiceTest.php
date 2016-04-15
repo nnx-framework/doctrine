@@ -89,7 +89,7 @@ class ObjectManagerServiceTest extends AbstractHttpControllerTestCase
         /** @var TestApp\TestModule1\Entity\TestEntity\TestEntityInterface $entity */
         $entity = $objectManagerService->createEntityObject(TestApp\TestModule1\Entity\TestEntity\TestEntityInterface::class);
 
-        $objectManagerService->saveEntityObject($entity);
+        $objectManagerService->saveEntityObject($entity, true);
 
         $this->reset();
 
