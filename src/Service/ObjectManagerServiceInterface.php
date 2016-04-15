@@ -28,10 +28,11 @@ interface ObjectManagerServiceInterface
      * Сохраняет сущность в хранилище
      *
      * @param mixed $entityObject
+     * @param bool $flagFlush
      *
-     * @return void
+     * @param bool  $flagFlush
      */
-    public function saveEntityObject($entityObject);
+    public function saveEntityObject($entityObject, $flagFlush = false);
 
     /**
      * Создает новую сущность

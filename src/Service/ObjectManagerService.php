@@ -64,7 +64,7 @@ class ObjectManagerService implements ObjectManagerServiceInterface
      *
      * @throws Exception\InvalidEntityObjectException
      */
-    public function saveEntityObject($entityObject)
+    public function saveEntityObject($entityObject, $flagFlush = false)
     {
         if (!is_object($entityObject)) {
             $errMsg = sprintf('Entity type %s is invalid.', gettype($entityObject));
@@ -75,7 +75,11 @@ class ObjectManagerService implements ObjectManagerServiceInterface
         $objectManager = $this->getObjectManagerAutoDetector()->getObjectManagerByClassName($className);
 
         $objectManager->persist($entityObject);
-        $objectManager->flush();
+        if (true === $flagFlush) {
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            //@TODO На уровне интерфейса ObjectManager'a возможности передать сущность в flush нет, есть только в \Doctrine\ORM\EntityManager::flush. Убрать @noinspection, когда наведут порядок в Doctrine
+            $objectManager->flush($entityObject);
+        }
     }
 
 
