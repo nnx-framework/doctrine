@@ -8,6 +8,7 @@ namespace Nnx\Doctrine;
 use Nnx\Doctrine\EntityManager\EntityManager;
 use Nnx\Doctrine\EntityManager\OrmEntityAbstractFactory;
 use Nnx\Doctrine\EntityManager\EntityMapAbstractFactory;
+use Nnx\Doctrine\EntityManager\EntityAbstractFactory;
 
 return [
     EntityManager::CONFIG_KEY => [
@@ -20,6 +21,7 @@ return [
         'abstract_factories' => [
             OrmEntityAbstractFactory::class => OrmEntityAbstractFactory::class,
             EntityMapAbstractFactory::class => EntityMapAbstractFactory::class,
+            EntityAbstractFactory::class => EntityAbstractFactory::class
         ]
     ],
 ];

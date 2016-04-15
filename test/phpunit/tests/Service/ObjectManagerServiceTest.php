@@ -69,7 +69,7 @@ class ObjectManagerServiceTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     * Проврека получения репозитория по интерфейсу сущности
+     * Проврека получения репозитория по имени класса сущности сущности
      *
      * @return void
      * @throws \Zend\Stdlib\Exception\LogicException
@@ -85,9 +85,9 @@ class ObjectManagerServiceTest extends AbstractHttpControllerTestCase
         /** @var ObjectManagerServiceInterface $objectManagerService */
         $objectManagerService = $this->getApplicationServiceLocator()->get(ObjectManagerServiceInterface::class);
 
-        $testEntityRep = $objectManagerService->getRepository(TestApp\TestModule1\Entity\TestEntity\TestEntityInterface::class);
+        $testEntityRep = $objectManagerService->getRepository(TestApp\TestModule1\Entity\TestEntity\TestEntity::class);
 
-        static::assertInstanceOf(TestApp\TestModule3\Repository\CustomRepository::class, $testEntityRep);
+        static::assertEquals(TestApp\TestModule1\Entity\TestEntity\TestEntity::class, $testEntityRep->getClassName());
     }
 
 
