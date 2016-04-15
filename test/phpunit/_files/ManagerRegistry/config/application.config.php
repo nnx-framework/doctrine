@@ -5,14 +5,11 @@
  */
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
-use Nnx\ZF2TestToolkit\Listener\InitTestAppListener;
 use Nnx\Doctrine\Module;
 use Nnx\ModuleOptions\Module as ModuleOptions;
 
 return [
     'modules'                 => [
-        'DoctrineModule',
-        'DoctrineORMModule',
         ModuleOptions::MODULE_NAME,
         Module::MODULE_NAME
     ],
@@ -21,15 +18,7 @@ return [
             Module::MODULE_NAME => TestPaths::getPathToModule(),
         ],
         'config_glob_paths' => [
-            __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',
+            __DIR__ . '/autoload/{{,*.}global,{,*.}local}.php',
         ],
-    ],
-    'service_manager'         => [
-        'invokables' => [
-            InitTestAppListener::class => InitTestAppListener::class
-        ]
-    ],
-    'listeners'               => [
-        InitTestAppListener::class
     ]
 ];

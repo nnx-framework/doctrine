@@ -175,4 +175,15 @@ class TestPaths
     {
         return  __DIR__ . '/../_files/ObjectManagerAutoDetector/application.config.php';
     }
+
+
+    /**
+     * Путь до конфига приложения, используемого для тестирования ManagerRegistry
+     *
+     * @return string
+     */
+    public static function getPathToManagerRegistryAppConfig()
+    {
+        return  __DIR__ . '/../_files/ManagerRegistry/config/application.config.php';
+    }
 }

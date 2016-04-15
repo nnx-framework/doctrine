@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine;
 
 
+use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListener;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Listener\ServiceListenerInterface;
 use Zend\ModuleManager\ModuleManager;
@@ -100,16 +101,27 @@ class Module implements
      * @param EventInterface $e
      *
      * @return array|void
+     * @throws \Nnx\Doctrine\Exception\InvalidArgumentException
      *
      * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
      */
     public function onBootstrap(EventInterface $e)
     {
-        /** @var MvcEvent $e */
-        $eventManager        = $e->getApplication()->getEventManager();
+        if (!$e instanceof MvcEvent) {
+            $errMsg = sprintf('Event not implement %s', MvcEvent::class);
+            throw new Exception\InvalidArgumentException($errMsg);
+        }
+
+        $app = $e->getApplication();
+
+        $eventManager        = $app->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
+        $sl = $app->getServiceManager();
+        /** @var ParamsFromDoctrineModuleListener $paramsFromDoctrineModuleListener */
+        $paramsFromDoctrineModuleListener = $sl->get(ParamsFromDoctrineModuleListener::class);
+        $paramsFromDoctrineModuleListener->attach($eventManager);
     }
 
 

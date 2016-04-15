@@ -103,6 +103,13 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     protected $flagDisableUseEntityMapDoctrineCache = false;
 
     /**
+     * Настройки необходимые для создания экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+     *
+     * @var ManagerRegistryOptions
+     */
+    protected $managerRegistry;
+
+    /**
      * Строка, используемая как разделитель в полном имени класса сущности (@see \Nnx\Doctrine\Options\ModuleOptions::$entitySeparator)
      *
      * @return string
@@ -341,6 +348,30 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, C
     public function setFlagDisableUseEntityMapDoctrineCache($flagDisableUseEntityMapDoctrineCache)
     {
         $this->flagDisableUseEntityMapDoctrineCache = $flagDisableUseEntityMapDoctrineCache;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает настройки необходимые для создания экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+     *
+     * @return ManagerRegistryOptions
+     */
+    public function getManagerRegistry()
+    {
+        return $this->managerRegistry;
+    }
+
+    /**
+     * Устанавливает настройки необходимые для создания экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+     *
+     * @param array $managerRegistry
+     *
+     * @return $this
+     */
+    public function setManagerRegistry(array $managerRegistry = [])
+    {
+        $this->managerRegistry = new ManagerRegistryOptions($managerRegistry);
 
         return $this;
     }

@@ -25,6 +25,10 @@ use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListener;
 use Nnx\Doctrine\DiscriminatorEntry\DiscriminatorEntryListenerFactory;
 use Nnx\Doctrine\Service\ObjectManagerServiceInterface;
 use Nnx\Doctrine\Service\ObjectManagerServiceFactory;
+use Nnx\Doctrine\ManagerRegistry\ManagerRegistry;
+use Nnx\Doctrine\ManagerRegistry\ManagerRegistryFactory;
+use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListener;
+use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListenerFactory;
 
 return [
     'service_manager' => [
@@ -40,7 +44,9 @@ return [
             EntityMapCacheInterface::class                => EntityMapCacheFactory::class,
             DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class,
             DiscriminatorEntryListener::class             => DiscriminatorEntryListenerFactory::class,
-            ObjectManagerServiceInterface::class          => ObjectManagerServiceFactory::class
+            ObjectManagerServiceInterface::class          => ObjectManagerServiceFactory::class,
+            ManagerRegistry::class                        => ManagerRegistryFactory::class,
+            ParamsFromDoctrineModuleListener::class       => ParamsFromDoctrineModuleListenerFactory::class
         ],
         'abstract_factories' => [
 

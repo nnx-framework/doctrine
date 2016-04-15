@@ -10,11 +10,12 @@ use Nnx\ModuleOptions\Module as ModuleOptions;
 
 return [
     'modules'                 => [
+        ModuleOptions::MODULE_NAME,
         Module::MODULE_NAME
     ],
     'module_listener_options' => [
         'module_paths'      => [
-            ModuleOptions::MODULE_NAME => TestPaths::getPathToModule(),
+            Module::MODULE_NAME => TestPaths::getPathToModule(),
         ],
         'config_glob_paths' => [
             __DIR__ . '/config/autoload/{{,*.}global,{,*.}local}.php',

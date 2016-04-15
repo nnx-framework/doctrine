@@ -54,6 +54,13 @@ class DoctrineOrmModuleConfig implements DoctrineOrmModuleConfigInterface
     protected $listObjectManagerName;
 
     /**
+     * Список соеденений
+     *
+     * @var array|null
+     */
+    protected $listConnectionName;
+
+    /**
      * DoctrineOrmModuleConfig constructor.
      *
      * @param array                  $doctrineConfig
@@ -116,6 +123,35 @@ class DoctrineOrmModuleConfig implements DoctrineOrmModuleConfigInterface
         $this->listObjectManagerName = array_combine($listObjectManagerName, $prepareListObjectManagerName);
 
         return $this->listObjectManagerName;
+    }
+
+
+    /**
+     * Список соиденений декларированных в настройках модуля DoctrineOrmModule
+     *
+     * @return array
+     */
+    public function getListConnectionName()
+    {
+        if ($this->listConnectionName) {
+            return $this->listConnectionName;
+        }
+
+        if (!$this->isValidDoctrineOrmModuleEntityManagerConfig()) {
+            $this->listConnectionName = [];
+            return $this->listConnectionName;
+        }
+
+        $doctrineConfig = $this->getDoctrineConfig();
+
+        $listConnectionName = array_keys($doctrineConfig['connection']);
+        $prepareListConnectionName = array_map(function ($connectionName) {
+            return 'doctrine.connection.' . $connectionName;
+        }, $listConnectionName);
+
+        $this->listConnectionName = array_combine($listConnectionName, $prepareListConnectionName);
+
+        return $this->listConnectionName;
     }
 
     /**

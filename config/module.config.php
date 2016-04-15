@@ -73,6 +73,37 @@ $config = [
          *
          */
         'metadataReaderCache' => 'doctrine.cache.array',
+
+        /**
+         * Настройки необходимые для создания экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+         *
+         */
+        'managerRegistry' => [
+            /**
+             * Имя соеденений которые можно использовать в \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+             */
+            'connections' => [
+
+            ],
+            /**
+             * Имена ObjectManager's которые можно использовать в \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+             */
+            'objectManagers' => [
+
+            ],
+            /**
+             * Имя соеденения по умолчанию
+             */
+            'defaultConnection' => 'doctrine.connection.orm_default',
+            /**
+             * Имя ObjectManager'a по умолчанию
+             */
+            'defaultManager'    => 'doctrine.entitymanager.orm_default',
+            /**
+             * Имя прокси интерфейса
+             */
+            'proxyInterfaceName' => ''
+        ]
     ]
 ];
 

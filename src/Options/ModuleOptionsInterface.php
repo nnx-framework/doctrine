@@ -99,4 +99,12 @@ interface ModuleOptionsInterface
      * @return $this
      */
     public function setFlagDisableUseEntityMapDoctrineCache($flagDisableUseEntityMapDoctrineCache);
+
+
+    /**
+     * Возвращает настройки необходимые для создания экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+     *
+     * @return ManagerRegistryOptions
+     */
+    public function getManagerRegistry();
 }

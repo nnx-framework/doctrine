@@ -43,4 +43,11 @@ interface DoctrineOrmModuleConfigInterface
      * @return array
      */
     public function getListObjectManagerName();
+
+    /**
+     * Список соиденений декларированных в настройках модуля DoctrineOrmModule
+     *
+     * @return array
+     */
+    public function getListConnectionName();
 }
