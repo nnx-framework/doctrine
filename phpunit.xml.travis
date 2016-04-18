@@ -64,6 +64,9 @@
                         <element key="dbname">
                             <string>test_database_name</string>
                         </element>
+                        <element key="password">
+                            <null/>
+                        </element>
                     </array>
 
                 </arguments>
