@@ -54,6 +54,11 @@ class ManagerRegistryFunctionalTest extends AbstractHttpControllerTestCase
      */
     public function testGetConnections()
     {
+        echo '</pre>';
+        print_r($this->getApplicationServiceLocator()->get('config')['doctrine']);
+        die();
+
+
         /** @var ManagerRegistry $managerRegistry */
         $managerRegistry = $this->getApplicationServiceLocator()->get(ManagerRegistry::class);
         $actualConnections = $managerRegistry->getConnections();
