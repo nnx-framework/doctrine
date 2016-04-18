@@ -7,6 +7,7 @@ namespace Nnx\Doctrine\ManagerRegistry;
 
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
+use Zend\EventManager\EventManagerAwareTrait;
 
 /**
  * Class ManagerRegistry
@@ -15,6 +16,8 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class ManagerRegistry extends AbstractManagerRegistry
 {
+    use EventManagerAwareTrait;
+
     /**
      * Имя менеджера
      *
@@ -27,14 +30,14 @@ class ManagerRegistry extends AbstractManagerRegistry
      *
      * @var string
      */
-    const OBJECT_MANAGER_CONTEXT = 'objectManager';
+    const OBJECT_MANAGER_CONTEXT = 'objectManagerContext';
 
     /**
      * Контекст вызова метода getService
      *
      * @var string
      */
-    const CONNECTION_CONTEXT = 'objectManager';
+    const CONNECTION_CONTEXT = 'connectionContext';
 
     /**
      * Контекст вызова метода getService
@@ -42,6 +45,55 @@ class ManagerRegistry extends AbstractManagerRegistry
      * @var string
      */
     protected $serviceContext;
+
+    /**
+     * Ключем является имя ObjectManager'a, а значением объект ObjectManager'a
+     *
+     * @var array
+     */
+    protected $objectManagerByName = [];
+
+    /**
+     * Ключем является имя соеденения, а значением объект соеденения к базе данных
+     *
+     * @var array
+     */
+    protected $connectionByName = [];
+
+    /**
+     * Прототип для создания объекта события, бросаемого когда нужно получить ресурс
+     *
+     * @var ManagerRegistryResourceEventInterface
+     */
+    protected $managerRegistryResourceEventPrototype;
+
+    /**
+     * Возвращает прототип для создания объекта события, бросаемого когда нужно получить ресурс
+     * 
+     * @return ManagerRegistryResourceEventInterface
+     */
+    public function getManagerRegistryResourceEventPrototype()
+    {
+        if (null === $this->managerRegistryResourceEventPrototype) {
+            $managerRegistryResourceEventPrototype = new ManagerRegistryResourceEvent();
+            $this->setManagerRegistryResourceEventPrototype($managerRegistryResourceEventPrototype);
+        }
+        return $this->managerRegistryResourceEventPrototype;
+    }
+
+    /**
+     * Устанавливает прототип для создания объекта события, бросаемого когда нужно получить ресурс
+     *
+     * @param ManagerRegistryResourceEventInterface $managerRegistryResourceEventPrototype
+     *
+     * @return $this
+     */
+    public function setManagerRegistryResourceEventPrototype(ManagerRegistryResourceEventInterface $managerRegistryResourceEventPrototype)
+    {
+        $this->managerRegistryResourceEventPrototype = $managerRegistryResourceEventPrototype;
+
+        return $this;
+    }
 
     /**
      * @inheritdoc
@@ -105,9 +157,13 @@ class ManagerRegistry extends AbstractManagerRegistry
 
 
     /**
+     * @inheritdoc
+     *
      * @param string $name
      *
      * @return mixed
+     * @throws \Nnx\Doctrine\ManagerRegistry\Exception\ConnectionNotFoundException
+     * @throws \Nnx\Doctrine\ManagerRegistry\Exception\ObjectManagerNotFoundException
      * @throws \Nnx\Doctrine\ManagerRegistry\Exception\RuntimeException
      */
     protected function getService($name)
@@ -130,10 +186,34 @@ class ManagerRegistry extends AbstractManagerRegistry
      * @param $name
      *
      * @return ObjectManager
+     * @throws \Nnx\Doctrine\ManagerRegistry\Exception\ObjectManagerNotFoundException
      */
     protected function getObjectManagerByName($name)
     {
-        // TODO: Implement getObjectManagerByName() method.
+        if (array_key_exists($name, $this->objectManagerByName)) {
+            return $this->objectManagerByName[$name];
+        }
+
+        $event = clone $this->getManagerRegistryResourceEventPrototype();
+        $event->setName(ManagerRegistryResourceEvent::RESOLVE_OBJECT_MANAGER_EVENT);
+        $event->setResourceName($name);
+        $event->setTarget($this);
+
+
+        $resultsEvent = $this->getEventManager()->trigger($event, function ($objectManager) {
+            return $objectManager instanceof ObjectManager;
+        });
+
+        $objectManager = $resultsEvent->last();
+
+        if (!$objectManager instanceof ObjectManager) {
+            $errMsg = sprintf('Object manager %s not found', $name);
+            throw new Exception\ObjectManagerNotFoundException($errMsg);
+        }
+
+        $this->objectManagerByName[$name] = $objectManager;
+
+        return $this->objectManagerByName[$name];
     }
 
 
@@ -143,31 +223,69 @@ class ManagerRegistry extends AbstractManagerRegistry
      * @param $name
      *
      * @return mixed
+     * @throws \Nnx\Doctrine\ManagerRegistry\Exception\ConnectionNotFoundException
      */
     protected function getConnectionByName($name)
     {
-        // TODO: Implement getConnectionByName() method.
+        if (array_key_exists($name, $this->connectionByName)) {
+            return $this->connectionByName[$name];
+        }
+
+        $event = clone $this->getManagerRegistryResourceEventPrototype();
+        $event->setName(ManagerRegistryResourceEvent::RESOLVE_CONNECTION_EVENT);
+        $event->setResourceName($name);
+        $event->setTarget($this);
+
+
+        $resultsEvent = $this->getEventManager()->trigger($event, function ($connection) {
+            return is_object($connection);
+        });
+
+        $connection = $resultsEvent->last();
+
+        if (!is_object($connection)) {
+            $errMsg = sprintf('Connection %s not found', $name);
+            throw new Exception\ConnectionNotFoundException($errMsg);
+        }
+
+        $this->connectionByName[$name] = $connection;
+
+        return $this->connectionByName[$name];
     }
 
 
+    /**
+     * {@inheritdoc}
+     */
+    public function resetManager($name = null)
+    {
+        $this->serviceContext = static::OBJECT_MANAGER_CONTEXT;
+        parent::resetManager($name);
+        $this->serviceContext = null;
+    }
 
     /**
      * @param string $name
      *
      * @return mixed
+     * @throws \Nnx\Doctrine\ManagerRegistry\Exception\ObjectManagerNotFoundException
      */
     protected function resetService($name)
     {
-        // TODO: Implement resetService() method.
+        if (static::OBJECT_MANAGER_CONTEXT === $this->serviceContext) {
+            $this->getObjectManagerByName($name)->clear();
+        }
     }
 
     /**
+     * @inheritdoc
+     *
      * @param string $alias
      *
      * @return mixed
      */
     public function getAliasNamespace($alias)
     {
-        // TODO: Implement getAliasNamespace() method.
+        return $alias;
     }
 }

@@ -30,7 +30,7 @@ class ManagerRegistryFactory implements FactoryInterface
     const EVENT_BUILD_LIST_CONNECTIONS = 'managerRegistryFactory.buildListConnections';
 
     /**
-     * Имя события бросаемое когда необходимо получить список используемых соеденений
+     * Имя события бросаемое когда необходимо получить список используемых ObjectManager'ов
      *
      * @var string
      */

@@ -97,11 +97,7 @@ return [
             /**
              * Имя ObjectManager'a по умолчанию
              */
-            'defaultManager'    => 'doctrine.entitymanager.orm_default',
-            /**
-             * Имя прокси интерфейса
-             */
-            'proxyInterfaceName' => ''
+            'defaultManager'    => 'doctrine.entitymanager.orm_default'
         ]
     ]
 ];

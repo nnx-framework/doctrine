@@ -12,3 +12,4 @@
     - [DoctrineObjectHydrator](doctrine-object-hydrator.md)
 - Сервисы
     - [ObjectManagerServiceInterface](object-manager-service.md)
+- [ManagerRegistry](manager-registry.md)

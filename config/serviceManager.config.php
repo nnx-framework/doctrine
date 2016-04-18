@@ -29,6 +29,10 @@ use Nnx\Doctrine\ManagerRegistry\ManagerRegistry;
 use Nnx\Doctrine\ManagerRegistry\ManagerRegistryFactory;
 use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListener;
 use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListenerFactory;
+use Nnx\Doctrine\ManagerRegistry\ResolverManagerRegistryResourceListener;
+use Nnx\Doctrine\ManagerRegistry\ResolverManagerRegistryResourceListenerFactory;
+use Nnx\Doctrine\Listener\ManagerRegistryListener;
+use \Nnx\Doctrine\Listener\ManagerRegistryListenerFactory;
 
 return [
     'service_manager' => [
@@ -37,16 +41,18 @@ return [
             EntityManagerInterface::class         => EntityManager::class
         ],
         'factories'          => [
-            ObjectManagerAutoDetectorInterface::class     => ObjectManagerAutoDetectorFactory::class,
-            OrmEntityLocatorInterface::class              => OrmEntityLocatorFactory::class,
-            DoctrineOrmModuleConfigInterface::class       => DoctrineOrmModuleConfigFactory::class,
-            EntityMapBuilderInterface::class              => EntityMapBuilderFactory::class,
-            EntityMapCacheInterface::class                => EntityMapCacheFactory::class,
-            DoctrineObjectHydratorLocatorInterface::class => DoctrineObjectHydratorLocatorFactory::class,
-            DiscriminatorEntryListener::class             => DiscriminatorEntryListenerFactory::class,
-            ObjectManagerServiceInterface::class          => ObjectManagerServiceFactory::class,
-            ManagerRegistry::class                        => ManagerRegistryFactory::class,
-            ParamsFromDoctrineModuleListener::class       => ParamsFromDoctrineModuleListenerFactory::class
+            ObjectManagerAutoDetectorInterface::class      => ObjectManagerAutoDetectorFactory::class,
+            OrmEntityLocatorInterface::class               => OrmEntityLocatorFactory::class,
+            DoctrineOrmModuleConfigInterface::class        => DoctrineOrmModuleConfigFactory::class,
+            EntityMapBuilderInterface::class               => EntityMapBuilderFactory::class,
+            EntityMapCacheInterface::class                 => EntityMapCacheFactory::class,
+            DoctrineObjectHydratorLocatorInterface::class  => DoctrineObjectHydratorLocatorFactory::class,
+            DiscriminatorEntryListener::class              => DiscriminatorEntryListenerFactory::class,
+            ObjectManagerServiceInterface::class           => ObjectManagerServiceFactory::class,
+            ManagerRegistry::class                         => ManagerRegistryFactory::class,
+            ParamsFromDoctrineModuleListener::class        => ParamsFromDoctrineModuleListenerFactory::class,
+            ResolverManagerRegistryResourceListener::class => ResolverManagerRegistryResourceListenerFactory::class,
+            ManagerRegistryListener::class                 => ManagerRegistryListenerFactory::class
         ],
         'abstract_factories' => [
 

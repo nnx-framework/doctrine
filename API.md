@@ -7,7 +7,14 @@
 - Менеджер для получения ObjectManager'ов
 - Менеджер для создания сущностей Doctrine2 - EntityManager
 - Расширение для Doctrine2, позволяющее добавлять значения в DiscriminatorMap из сущностей потомков
-- Абстрактная фабрика для менеджера гидратор, создающая \DoctrineModule\Stdlib\Hydrator\DoctrineObject
+- Абстрактная фабрика для менеджера гидраторов, создающая \DoctrineModule\Stdlib\Hydrator\DoctrineObject
+
+# Обработчики общих событий
+
+Идентификатор          |Имя события                |Описание
+-----------------------|---------------------------|-----------
+DoctrineManagerRegistry|get.doctrineManagerRegistry|Получение экземпляра \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
+
 
 #Сервисы
 
@@ -32,7 +39,23 @@ getRepository      |По имени сущности получает репоз
 saveEntityObject   |Сохраняет сущность в хранилище
 createEntityObject |Создает новую сущность
 
+## Сервис \Nnx\Doctrine\ManagerRegistry\ManagerRegistry
 
+Методы: @see \Doctrine\Common\Persistence\AbstractManagerRegistry
+
+События бросаемые фабрикой \Nnx\Doctrine\ManagerRegistry\ManagerRegistryFactory при создание сервиса
+
+Имя события                                   |Описание
+----------------------------------------------|----------------
+managerRegistryFactory.buildListConnections   |Событие бросаемое когда необходимо получить список используемых соеденений
+managerRegistryFactory.buildListObjectManagers|Событие бросаемое когда необходимо получить список используемых ObjectManager'ов
+
+События бросаемые самим сервисом:
+
+Имя события                                     |Описание
+------------------------------------------------|----------------
+resolveObjectManager.managerRegistryResource    |Событие бросаемое когда необходимо получить ObjectManager Doctrine по его имени
+resolveConnectionManager.managerRegistryResource|Событие бросаемое когда необходимо получить соеденение Doctrine по его имени
 
 
 # Plugin Managers

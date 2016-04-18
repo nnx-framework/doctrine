@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine\PhpUnit\TestData\ManagerRegistry;
 
 use Nnx\Doctrine\PhpUnit\TestData\TestPaths;
+use Nnx\Doctrine\PhpUnit\TestData\ManagerRegistry\TestModule1\Module as TestModule1;
 
 return [
     'doctrine' => [
@@ -43,7 +44,7 @@ return [
             'test' => [
                 'class'   => 'Doctrine\ORM\Mapping\Driver\DriverChain',
                 'drivers' => [
-
+                    TestModule1::MODULE_NAME . '\\Entity' => 'testModule1',
                 ]
             ]
         ]

@@ -48,6 +48,26 @@
 
                 </arguments>
             </listener>
+            <listener class="\Nnx\ZF2TestToolkit\Listener\InitTestAppListener">
+                <arguments>
+                    <!-- Имя соеденения - которое можно получить через сервис doctrine.connection.ИМЯ_СОЕДЕНЕНИЯ -->
+                    <string>orm_default</string>
+                    <!-- Используемый драйвер -->
+                    <string>\Doctrine\DBAL\Driver\PDOMySql\Driver</string>
+                    <array>
+                        <element key="host">
+                            <string>127.0.0.1</string>
+                        </element>
+                        <element key="user">
+                            <string>root</string>
+                        </element>
+                        <element key="dbname">
+                            <string>test_database_name</string>
+                        </element>
+                    </array>
+
+                </arguments>
+            </listener>
         </listeners>
 
 

@@ -25,6 +25,8 @@ use Nnx\Doctrine\EntityManager\EntityManagerProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
+use Nnx\Doctrine\ManagerRegistry\ResolverManagerRegistryResourceListener;
+use Nnx\Doctrine\Listener\ManagerRegistryListener;
 
 /**
  * Class Module
@@ -122,7 +124,18 @@ class Module implements
         /** @var ParamsFromDoctrineModuleListener $paramsFromDoctrineModuleListener */
         $paramsFromDoctrineModuleListener = $sl->get(ParamsFromDoctrineModuleListener::class);
         $paramsFromDoctrineModuleListener->attach($eventManager);
+
+
+        /** @var ResolverManagerRegistryResourceListener $resolverManagerRegistryResourceListener */
+        $resolverManagerRegistryResourceListener = $sl->get(ResolverManagerRegistryResourceListener::class);
+        $resolverManagerRegistryResourceListener->attach($eventManager);
+
+        /** @var ManagerRegistryListener $managerRegistryListener */
+        $managerRegistryListener = $sl->get(ManagerRegistryListener::class);
+        $managerRegistryListener->attach($eventManager);
+
     }
+
 
 
     /**

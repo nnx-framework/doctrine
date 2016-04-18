@@ -6,6 +6,7 @@
 namespace Nnx\Doctrine\Options;
 
 use Zend\Stdlib\AbstractOptions;
+use Doctrine\Common\Persistence\Proxy;
 
 /**
  * Class ManagerRegistryOptions
@@ -47,7 +48,7 @@ class ManagerRegistryOptions extends AbstractOptions
      *
      * @var string
      */
-    protected $proxyInterfaceName;
+    protected $proxyInterfaceName = Proxy::class;
 
     /**
      * Возвращает имя соеденений которые можно использовать в \Nnx\Doctrine\ManagerRegistry\ManagerRegistry

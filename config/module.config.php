@@ -5,6 +5,8 @@
  */
 namespace Nnx\Doctrine;
 
+use Doctrine\Common\Persistence\Proxy;
+
 $config = [
     Module::CONFIG_KEY => [
         /**
@@ -94,15 +96,15 @@ $config = [
             /**
              * Имя соеденения по умолчанию
              */
-            'defaultConnection' => 'doctrine.connection.orm_default',
+            'defaultConnection' => 'orm_default',
             /**
              * Имя ObjectManager'a по умолчанию
              */
-            'defaultManager'    => 'doctrine.entitymanager.orm_default',
+            'defaultManager'    => 'orm_default',
             /**
              * Имя прокси интерфейса
              */
-            'proxyInterfaceName' => ''
+            'proxyInterfaceName' => Proxy:: class
         ]
     ]
 ];

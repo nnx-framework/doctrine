@@ -16,14 +16,6 @@ use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigInterface;
  */
 class ParamsFromDoctrineModuleListener extends AbstractListenerAggregate
 {
-
-    /**
-     * Набор слушателей для SharedManager'a
-     *
-     * @var array
-     */
-    protected $sharedManagerListeners = [];
-
     /**
      * Утилита для работы с конфигами DoctrineORMModule
      *
