@@ -8,6 +8,7 @@ namespace Nnx\Doctrine;
 
 use Nnx\Doctrine\ManagerRegistry\ParamsFromDoctrineModuleListener;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 use Zend\ModuleManager\Listener\ServiceListenerInterface;
 use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\ModuleManagerInterface;
@@ -27,6 +28,7 @@ use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Nnx\Doctrine\ManagerRegistry\ResolverManagerRegistryResourceListener;
 use Nnx\Doctrine\Listener\ManagerRegistryListener;
+use Nnx\ModuleOptions\Module as ModuleOptions;
 
 /**
  * Class Module
@@ -39,7 +41,8 @@ class Module implements
     InitProviderInterface,
     ConfigProviderInterface,
     ConsoleUsageProviderInterface,
-    ConsoleBannerProviderInterface
+    ConsoleBannerProviderInterface,
+    DependencyIndicatorInterface
 {
     /**
      * Имя секции в конфиги приложения отвечающей за настройки модуля
@@ -54,6 +57,17 @@ class Module implements
      * @var string
      */
     const MODULE_NAME = __NAMESPACE__;
+
+    /**
+     * @return array
+     */
+    public function getModuleDependencies()
+    {
+        return [
+            ModuleOptions::MODULE_NAME
+        ];
+    }
+
 
     /**
      * @param ModuleManagerInterface $manager
