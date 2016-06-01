@@ -1,21 +1,21 @@
 # ObjectManager
 
 Модуль предоставляет отдельный менеджер плагинов \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface,
-предназначеный для централизации работы с ObjectManager'ами Doctrine2.
+предназначенный для централизации работы с ObjectManager'ами Doctrine2.
 
-Данный плагин менеджер предоставляет унифицированный способ получения экземпляров объектов, реализующих \Doctrine\Common\Persistence\ObjectManager.
+Данный плагин-менеджер предоставляет унифицированный способ получения экземпляров объектов, реализующих \Doctrine\Common\Persistence\ObjectManager.
 
-Характеристика                                                   |Значение
------------------------------------------------------------------|------------------------------------------------------------------
-Имя сервиса                                                      |\Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface
-Секция в конфигах приложения                                     |nnx_doctrine_object_manager
-Имя интерфейса для модуля                                        |\Nnx\Doctrine\ObjectManager\DoctrineObjectManagerProviderInterface
-Метод который должен реализовать модуля для возвращаения конфигов|getDoctrineObjectManagerConfig
+Характеристика                                                    |Значение
+------------------------------------------------------------------|------------------------------------------------------------------
+Имя сервиса                                                       |\Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface
+Секция в конфигах приложения                                      |nnx_doctrine_object_manager
+Имя интерфейса для модуля                                         |\Nnx\Doctrine\ObjectManager\DoctrineObjectManagerProviderInterface
+Метод, который должен реализовать модуль для возвращаения конфигов|getDoctrineObjectManagerConfig
 
 ## Интеграция с doctrine/doctrine-orm-module
 
-Плагин менеджер \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface, реализует нативную интеграцию с doctrine/doctrine-orm-module.
-Так,например, для получения экземпляра \Doctrine\ORM\EntityManager. Можно использовать следующий код:
+Плагин-менеджер \Nnx\Doctrine\ObjectManager\DoctrineObjectManagerInterface реализует нативную интеграцию с doctrine/doctrine-orm-module.
+Так, например, для получения экземпляра \Doctrine\ORM\EntityManager можно использовать следующий код:
 
 ```php
 
@@ -27,16 +27,16 @@ $objectManager = $doctrineObjectManager->get('doctrine.entitymanager.orm_default
 
 ## ObjectManager для модулей по умолчанию
 
-Для уменьшение связанности модулей, удобно исходить из того что каждый модуль, в своих настройках содержит имя ObjectManager'a
+Для уменьшения связности модулей удобно исходить из того, что каждый модуль в своих настройках содержит имя ObjectManager'a,
 который он использует.
 
 Для стандартизации настройки модулей предназначен интерфейс \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface.
 
 Если модуль использует nnx/module-options, то появляется унифицированная возможность доступа к настройкам модуля.
-Если класс описывающий настройки модуля реализует \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface, то
-считается что данный класс может предоставить имя ObjectManager'a по умолчанию для данного модуля.
+Если класс, описывающий настройки модуля, реализует \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface, то
+считается, что данный класс может предоставить имя ObjectManager'a по умолчанию для данного модуля.
 
-Также есть трейт \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderTrait, реализующий методы декларированные в 
+Также есть трейт \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderTrait, реализующий методы, декларированные в 
 \Nnx\Doctrine\ObjectManager\ObjectManagerNameProviderInterface.
 
 Пример использования:
@@ -60,8 +60,8 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, O
 
 ## Сервис для автоматического получения ObjectManager'a
 
-Если модуль реализует поддержку стандартного механизма получения своих настроек (т.е. подходит под стандарты nnx/module-options),
-есть возможность автоматически, по имени любого класса, входящего в этот модуль, получать имя ObjectManager'a, либо сам ObjectManager'a.
+Если модуль реализует поддержку стандартного механизма получения своих настроек (т.е. подходит под стандарты nnx/module-options), то
+есть возможность автоматически по имени любого класса, входящего в этот модуль, получать имя ObjectManager'a или сам ObjectManager'a.
 
 Для этих целей предназначен сервис \Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface.
 
@@ -69,10 +69,10 @@ class ModuleOptions extends AbstractOptions implements ModuleOptionsInterface, O
 
 Метод                          |Описание
 -------------------------------|-----------------
-getObjectManagerNameByClassName|Получает имя используемого в модуле ObjectManager'a Doctrine, по имени любого класса модуля
-hasObjectManagerNameByClassName|Проверяет есть ли возможность по имени класса модуля, получить имя objectManager'a который используется в данном модуле
-hasObjectManagerByClassName    |Проверяет есть ли возможность по имени класса модуля, получить objectManager'a который используется в данном модуле
-getObjectManagerByClassName    |По имени класса модуля, получает objectManager'a который используется в данном модуле
+getObjectManagerNameByClassName|Получает имя используемого в модуле ObjectManager'a Doctrine по имени любого класса модуля
+hasObjectManagerNameByClassName|Проверяет, есть ли возможность по имени класса модуля получить имя objectManager'a, который используется в данном модуле
+hasObjectManagerByClassName    |Проверяет, есть ли возможность по имени класса модуля получить objectManager'a, который используется в данном модуле
+getObjectManagerByClassName    |По имени класса модуля получает objectManager, который используется в данном модуле
 
 Пример использования:
 
@@ -88,6 +88,3 @@ $objectManagerAutoDetector = $serviceLocator->get(ObjectManagerAutoDetectorInter
 $objectManager = $objectManagerAutoDetector->getObjectManagerByClassName(App\TestModule1\Entity\TestEntity\TestEntityInterface::class);
 
 ```
-
-
-
