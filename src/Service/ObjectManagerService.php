@@ -8,6 +8,7 @@ namespace Nnx\Doctrine\Service;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Nnx\Doctrine\EntityManager\EntityManagerInterface;
 use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface;
+use Doctrine\Common\Util\ClassUtils;
 
 /**
  * Class ObjectManagerService
@@ -71,7 +72,7 @@ class ObjectManagerService implements ObjectManagerServiceInterface
             throw new Exception\InvalidEntityObjectException($errMsg);
         }
 
-        $className = get_class($entityObject);
+        $className = ClassUtils::getClass($entityObject);
         $objectManager = $this->getObjectManagerAutoDetector()->getObjectManagerByClassName($className);
 
         $objectManager->persist($entityObject);

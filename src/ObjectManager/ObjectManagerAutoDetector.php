@@ -8,6 +8,7 @@ namespace Nnx\Doctrine\ObjectManager;
 use Nnx\ModuleOptions\ModuleOptionsPluginManagerInterface;
 use Interop\Container\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Util\ClassUtils;
 
 /**
  * Class ObjectManagerAutoDetector
@@ -62,12 +63,13 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      */
     public function getObjectManagerNameByClassName($className)
     {
-        if (false === $this->hasObjectManagerNameByClassName($className)) {
-            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $className);
+        $realClass = ClassUtils::getRealClass($className);
+        if (false === $this->hasObjectManagerNameByClassName($realClass)) {
+            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $realClass);
             throw new Exception\ErrorBuildObjectManagerNameException($errMsg);
         }
 
-        return $this->classNameToObjectManagerName[$className];
+        return $this->classNameToObjectManagerName[$realClass];
     }
 
 
@@ -81,32 +83,34 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      */
     public function hasObjectManagerNameByClassName($className)
     {
-        if (array_key_exists($className, $this->classNameToObjectManagerName)) {
-            return false !== $this->classNameToObjectManagerName[$className];
+        $realClass = ClassUtils::getRealClass($className);
+
+        if (array_key_exists($realClass, $this->classNameToObjectManagerName)) {
+            return false !== $this->classNameToObjectManagerName[$realClass];
         }
 
         $moduleOptionsManager =  $this->getModuleOptionsManager();
-        if (!$moduleOptionsManager->hasOptionsByClassName($className)) {
-            $this->classNameToObjectManagerName[$className] = false;
+        if (!$moduleOptionsManager->hasOptionsByClassName($realClass)) {
+            $this->classNameToObjectManagerName[$realClass] = false;
             return false;
         }
 
-        $moduleOptions = $moduleOptionsManager->getOptionsByClassName($className);
+        $moduleOptions = $moduleOptionsManager->getOptionsByClassName($realClass);
 
         if (!$moduleOptions instanceof ObjectManagerNameProviderInterface) {
-            $this->classNameToObjectManagerName[$className] = false;
+            $this->classNameToObjectManagerName[$realClass] = false;
             return false;
         }
 
         $objectManagerName = $moduleOptions->getObjectManagerName();
 
         if (!is_string($objectManagerName)) {
-            $this->classNameToObjectManagerName[$className] = false;
+            $this->classNameToObjectManagerName[$realClass] = false;
             return false;
         }
-        $this->classNameToObjectManagerName[$className] = $objectManagerName;
+        $this->classNameToObjectManagerName[$realClass] = $objectManagerName;
 
-        return false !== $this->classNameToObjectManagerName[$className];
+        return false !== $this->classNameToObjectManagerName[$realClass];
     }
 
 
@@ -121,8 +125,10 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      */
     public function hasObjectManagerByClassName($className)
     {
-        if ($this->hasObjectManagerNameByClassName($className)) {
-            $objectManagerName = $this->getObjectManagerNameByClassName($className);
+        $realClass = ClassUtils::getRealClass($className);
+
+        if ($this->hasObjectManagerNameByClassName($realClass)) {
+            $objectManagerName = $this->getObjectManagerNameByClassName($realClass);
             return $this->getDoctrineObjectManager()->has($objectManagerName);
         }
         return false;
@@ -142,11 +148,13 @@ class ObjectManagerAutoDetector implements ObjectManagerAutoDetectorInterface
      */
     public function getObjectManagerByClassName($className)
     {
-        if (!$this->hasObjectManagerByClassName($className)) {
-            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $className);
+        $realClass = ClassUtils::getRealClass($className);
+
+        if (!$this->hasObjectManagerByClassName($realClass)) {
+            $errMsg = sprintf('Failed to get the manager\'s name for class %s', $realClass);
             throw new Exception\ErrorBuildObjectManagerException($errMsg);
         }
-        $objectManagerName = $this->getObjectManagerNameByClassName($className);
+        $objectManagerName = $this->getObjectManagerNameByClassName($realClass);
 
         return $this->getDoctrineObjectManager()->get($objectManagerName);
     }
