@@ -52,7 +52,8 @@ return [
             ManagerRegistry::class                         => ManagerRegistryFactory::class,
             ParamsFromDoctrineModuleListener::class        => ParamsFromDoctrineModuleListenerFactory::class,
             ResolverManagerRegistryResourceListener::class => ResolverManagerRegistryResourceListenerFactory::class,
-            ManagerRegistryListener::class                 => ManagerRegistryListenerFactory::class
+            ManagerRegistryListener::class                 => ManagerRegistryListenerFactory::class,
+            Resolver\EntityListenerResolver::class         => Resolver\EntityListenerResolverFactory::class,
         ],
         'abstract_factories' => [
 
@@ -63,5 +64,3 @@ return [
         ]
     ],
 ];
-
-

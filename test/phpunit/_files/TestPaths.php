@@ -186,4 +186,13 @@ class TestPaths
     {
         return  __DIR__ . '/../_files/ManagerRegistry/config/application.config.php';
     }
+    /**
+     * Путь до конфига приложения, используемого для тестирования EntityListenerResolver
+     *
+     * @return string
+     */
+    public static function getPathToEntityListenerResolverAppConfig()
+    {
+        return  __DIR__ . '/../_files/EntityListenerResolver/config/application.config.php';
+    }
 }
