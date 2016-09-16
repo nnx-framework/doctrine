@@ -41,5 +41,4 @@ class RootEntityListener
             $entity->setListenerChanged(true);
         }
     }
-
 }

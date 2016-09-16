@@ -29,7 +29,6 @@ class Module implements
      */
     public function getAutoloaderConfig()
     {
-
         return [
             'Zend\Loader\StandardAutoloader' => [
                 'namespaces' => [
@@ -48,4 +47,4 @@ class Module implements
     {
         return include __DIR__ . '/config/module.config.php';
     }
-} 
+}

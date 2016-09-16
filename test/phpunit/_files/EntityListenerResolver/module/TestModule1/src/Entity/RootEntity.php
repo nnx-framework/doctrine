@@ -62,5 +62,4 @@ class RootEntity
         $this->listenerChanged = $listenerChanged;
         return $this;
     }
-
 }

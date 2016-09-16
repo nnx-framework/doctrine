@@ -13,7 +13,6 @@ use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorInterface;
 use Nnx\Doctrine\ObjectManager\ObjectManagerAutoDetectorFactory;
 use Nnx\Doctrine\EntityManager\OrmEntityLocatorInterface;
 use Nnx\Doctrine\EntityManager\OrmEntityLocatorFactory;
-use Nnx\Doctrine\Resolver;
 use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigInterface;
 use Nnx\Doctrine\Utils\DoctrineOrmModuleConfigFactory;
 use Nnx\Doctrine\Utils\EntityMapBuilderInterface;
@@ -65,5 +64,3 @@ return [
         ]
     ],
 ];
-
-

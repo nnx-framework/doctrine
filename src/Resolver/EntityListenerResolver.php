@@ -51,5 +51,4 @@ class EntityListenerResolver extends DefaultEntityListenerResolver
     {
         return $this->container;
     }
-
 }

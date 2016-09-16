@@ -25,5 +25,4 @@ class EntityListenerResolverFactory implements FactoryInterface
     {
         return new EntityListenerResolver($serviceLocator);
     }
-
 }

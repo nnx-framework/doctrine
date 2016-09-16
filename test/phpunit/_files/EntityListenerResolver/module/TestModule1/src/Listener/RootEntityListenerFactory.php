@@ -25,5 +25,4 @@ class RootEntityListenerFactory implements FactoryInterface
     {
         return new RootEntityListener(true);
     }
-
 }

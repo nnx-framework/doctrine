@@ -66,5 +66,4 @@ class EntityListenerResolverTest extends AbstractHttpControllerTestCase
 
         static::assertEquals(true, $entity->isListenerChanged());
     }
-
 }
