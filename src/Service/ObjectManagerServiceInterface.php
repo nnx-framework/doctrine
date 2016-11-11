@@ -18,7 +18,6 @@ interface ObjectManagerServiceInterface
     const FLAG_PERSIST = 0;
     const FLAG_FLUSH = 1;
     const FLAG_FLUSH_ALL = 2;
-    
     /**
      * По имени сущности получает репозиторий для работы с ней
      *
