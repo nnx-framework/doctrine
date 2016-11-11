@@ -15,6 +15,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 interface ObjectManagerServiceInterface
 {
+    const FLAG_PERSIST = 0;
+    const FLAG_FLUSH = 1;
+    const FLAG_FLUSH_ALL = 2;
     /**
      * По имени сущности получает репозиторий для работы с ней
      *
@@ -28,11 +31,9 @@ interface ObjectManagerServiceInterface
      * Сохраняет сущность в хранилище
      *
      * @param mixed $entityObject
-     * @param bool $flagFlush
-     *
-     * @param bool  $flagFlush
+     * @param bool|int $flagFlush
      */
-    public function saveEntityObject($entityObject, $flagFlush = false);
+    public function saveEntityObject($entityObject, $flagFlush = self::FLAG_PERSIST);
 
     /**
      * Создает новую сущность
